@@ -34,9 +34,9 @@ hermes skills run shannon
 
 - Available as npm/yarn package
 
-- Highly popular with 42,038 GitHub stars
+- Highly popular with 42,051 GitHub stars
 
-- Widely forked with 4,776 forks indicating community engagement
+- Widely forked with 4,780 forks indicating community engagement
 
 - Related to: penetration-testing, pentesting, security-audit, security-automation, security-tools
 
@@ -44,7 +44,7 @@ hermes skills run shannon
 
 - Substantial codebase (62220 KB)
 
-- Monitored by 42,038 GitHub users
+- Monitored by 42,051 GitHub users
 
 
 ## 📖 Usage
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/KeygraphHQ/shannon
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://keygraph.io/
 

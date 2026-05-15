@@ -34,7 +34,7 @@ hermes skills run trek
 
 - Available as npm/yarn package
 
-- Well-known project with 4,961 GitHub stars
+- Well-known project with 4,967 GitHub stars
 
 - Actively developed with 473 forks
 
@@ -44,7 +44,7 @@ hermes skills run trek
 
 - Substantial codebase (65262 KB)
 
-- Monitored by 4,961 GitHub users
+- Monitored by 4,967 GitHub users
 
 
 ## 📖 Usage
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/mauriceboe/TREK
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://demo-nomad.pakulat.org
 

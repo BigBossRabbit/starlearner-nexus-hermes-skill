@@ -34,7 +34,7 @@ hermes skills run langchain
 
 - Can be used as a Python library or package
 
-- Highly popular with 136,820 GitHub stars
+- Highly popular with 136,827 GitHub stars
 
 - Widely forked with 22,628 forks indicating community engagement
 
@@ -42,9 +42,9 @@ hermes skills run langchain
 
 - Licensed under MIT License
 
-- Large codebase (555502 KB)
+- Large codebase (555807 KB)
 
-- Monitored by 136,820 GitHub users
+- Monitored by 136,827 GitHub users
 
 
 ## 📖 Usage
@@ -127,7 +127,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/langchain-ai/langchain
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://docs.langchain.com/langchain/
 

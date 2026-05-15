@@ -256,29 +256,7 @@ This skill provides tools for interacting with Lightning Network Daemon (LND) to
 3. Validate configuration: Ensure GITHUB_TOKEN is accessible via `echo $GITHUB_TOKEN`
 4. Test components individually: Try running `scripts/fetch_starred_repos.sh` directly
 
-## 📈 Marketplace Publishing
-
-To publish a generated skill to the Hermes marketplace:
-
-1. Navigate to the generated skill directory:
-   ```bash
-   cd ~/.hermes/skills/starlearner-nexus/generated_skills/bitcoin-lightning/lnd/
-   ```
-
-2. Ensure the SKILL.md is complete and follows conventions:
-   ```bash
-   hermes skill view lnd-lightning-node
-   ```
-
-3. Package and submit:
-   ```bash
-   # Create a zip of the skill directory
-   zip -r lnd-lightning-node.zip .
-   
-   # Submit via Hermes marketplace interface or GitHub PR
-   hermes skills submit lnd-lightning-node.zip
-   ```
-
+## 📈 Marketplace Publishing\n\nTo publish a generated skill to the Hermes marketplace:\n\n1. Navigate to the generated skill directory:\n   ```bash\n   cd ~/.hermes/skills/starlearner-nexus/generated_skills/bitcoin-lightning/lnd/\n   ```\n\n2. Ensure the SKILL.md is complete and follows conventions:\n   ```bash\n   hermes skill view lnd-lightning-node\n   ```\n\n3. **Security Check**: Verify no credentials are embedded in the skill:\n   - Check that no GitHub tokens, API keys, or passwords are present in SKILL.md\n   - Confirm that generated skills contain only public repository information\n   - Ensure any example commands don't include sensitive data\n\n4. Package and submit:\n   ```bash\n   # Create a zip of the skill directory\n   zip -r lnd-lightning-node.zip .\n   \n   # Submit via Hermes marketplace interface or GitHub PR\n   hermes skills submit lnd-lightning-node.zip\n   ```\n
 ## 🔄 Continuous Improvement
 
 StarLearner-Nexus learns and improves over time:

@@ -34,9 +34,9 @@ hermes skills run hermes-agent
 
 - Can be used as a Python library or package
 
-- Highly popular with 151,709 GitHub stars
+- Highly popular with 151,797 GitHub stars
 
-- Widely forked with 24,074 forks indicating community engagement
+- Widely forked with 24,101 forks indicating community engagement
 
 - Related to: ai, ai-agent, ai-agents, anthropic, chatgpt
 
@@ -44,7 +44,7 @@ hermes skills run hermes-agent
 
 - Large codebase (214876 KB)
 
-- Monitored by 151,709 GitHub users
+- Monitored by 151,797 GitHub users
 
 
 ## 📖 Usage
@@ -127,7 +127,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/NousResearch/hermes-agent
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://hermes-agent.nousresearch.com
 

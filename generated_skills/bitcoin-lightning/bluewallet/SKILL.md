@@ -42,7 +42,7 @@ hermes skills run bluewallet
 
 - Licensed under MIT License
 
-- Large codebase (208789 KB)
+- Large codebase (208791 KB)
 
 - Monitored by 3,203 GitHub users
 
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/BlueWallet/BlueWallet
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://bluewallet.io
 

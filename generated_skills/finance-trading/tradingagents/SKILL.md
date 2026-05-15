@@ -34,7 +34,7 @@ hermes skills run tradingagents
 
 - Can be used as a Python library or package
 
-- Highly popular with 75,763 GitHub stars
+- Highly popular with 75,781 GitHub stars
 
 - Widely forked with 14,747 forks indicating community engagement
 
@@ -42,7 +42,7 @@ hermes skills run tradingagents
 
 - Licensed under Apache License 2.0
 
-- Monitored by 75,763 GitHub users
+- Monitored by 75,781 GitHub users
 
 
 ## 📖 Usage
@@ -125,7 +125,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/TauricResearch/TradingAgents
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://arxiv.org/pdf/2412.20138
 

@@ -34,9 +34,9 @@ hermes skills run deep-live-cam
 
 - Can be used as a Python library or package
 
-- Highly popular with 93,036 GitHub stars
+- Highly popular with 93,041 GitHub stars
 
-- Widely forked with 13,540 forks indicating community engagement
+- Widely forked with 13,541 forks indicating community engagement
 
 - Related to: ai, ai-deep-fake, ai-face, ai-webcam, artificial-intelligence
 
@@ -44,7 +44,7 @@ hermes skills run deep-live-cam
 
 - Large codebase (156121 KB)
 
-- Monitored by 93,036 GitHub users
+- Monitored by 93,041 GitHub users
 
 
 ## 📖 Usage
@@ -127,7 +127,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/hacksider/Deep-Live-Cam
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://deeplivecam.net/
 

@@ -34,17 +34,17 @@ hermes skills run everything-claude-code
 
 - Available as npm/yarn package
 
-- Highly popular with 182,963 GitHub stars
+- Highly popular with 183,092 GitHub stars
 
-- Widely forked with 28,183 forks indicating community engagement
+- Widely forked with 28,210 forks indicating community engagement
 
 - Related to: ai-agents, anthropic, claude, claude-code, developer-tools
 
 - Licensed under MIT License
 
-- Substantial codebase (34006 KB)
+- Substantial codebase (34216 KB)
 
-- Monitored by 182,963 GitHub users
+- Monitored by 183,092 GitHub users
 
 
 ## 📖 Usage
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/affaan-m/everything-claude-code
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://ecc.tools
 

@@ -34,9 +34,9 @@ hermes skills run changedetection-io
 
 - Can be used as a Python library or package
 
-- Highly popular with 31,470 GitHub stars
+- Highly popular with 31,473 GitHub stars
 
-- Widely forked with 1,777 forks indicating community engagement
+- Widely forked with 1,778 forks indicating community engagement
 
 - Related to: back-in-stock, change-alert, change-detection, change-monitoring, monitoring
 
@@ -44,7 +44,7 @@ hermes skills run changedetection-io
 
 - Substantial codebase (24383 KB)
 
-- Monitored by 31,470 GitHub users
+- Monitored by 31,473 GitHub users
 
 
 ## 📖 Usage
@@ -127,7 +127,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/dgtlmoon/changedetection.io
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://changedetection.io
 

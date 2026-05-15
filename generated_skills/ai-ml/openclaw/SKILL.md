@@ -34,17 +34,17 @@ hermes skills run openclaw
 
 - Available as npm/yarn package
 
-- Highly popular with 372,144 GitHub stars
+- Highly popular with 372,163 GitHub stars
 
-- Widely forked with 77,056 forks indicating community engagement
+- Widely forked with 77,067 forks indicating community engagement
 
 - Related to: ai, assistant, crustacean, molty, openclaw
 
 - Licensed under MIT License
 
-- Large codebase (1205714 KB)
+- Large codebase (1216117 KB)
 
-- Monitored by 372,144 GitHub users
+- Monitored by 372,163 GitHub users
 
 
 ## 📖 Usage
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/openclaw/openclaw
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://openclaw.ai
 

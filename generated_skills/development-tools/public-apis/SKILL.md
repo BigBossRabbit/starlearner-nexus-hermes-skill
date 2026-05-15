@@ -34,15 +34,15 @@ hermes skills run public-apis
 
 - Can be used as a Python library or package
 
-- Highly popular with 435,149 GitHub stars
+- Highly popular with 435,154 GitHub stars
 
-- Widely forked with 47,694 forks indicating community engagement
+- Widely forked with 47,695 forks indicating community engagement
 
 - Related to: api, apis, dataset, development, free
 
 - Licensed under MIT License
 
-- Monitored by 435,149 GitHub users
+- Monitored by 435,154 GitHub users
 
 
 ## 📖 Usage
@@ -125,7 +125,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/public-apis/public-apis
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://APILayer.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo
 

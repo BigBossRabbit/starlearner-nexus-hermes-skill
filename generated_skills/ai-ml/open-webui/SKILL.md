@@ -34,9 +34,9 @@ hermes skills run open-webui
 
 - Can be used as a Python library or package
 
-- Highly popular with 137,187 GitHub stars
+- Highly popular with 137,197 GitHub stars
 
-- Widely forked with 19,563 forks indicating community engagement
+- Widely forked with 19,569 forks indicating community engagement
 
 - Related to: ai, llm, llm-ui, llm-webui, llms
 
@@ -44,7 +44,7 @@ hermes skills run open-webui
 
 - Large codebase (369716 KB)
 
-- Monitored by 137,187 GitHub users
+- Monitored by 137,197 GitHub users
 
 
 ## 📖 Usage
@@ -127,7 +127,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/open-webui/open-webui
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://openwebui.com
 

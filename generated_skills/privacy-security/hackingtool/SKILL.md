@@ -34,15 +34,15 @@ hermes skills run hackingtool
 
 - Can be used as a Python library or package
 
-- Highly popular with 74,685 GitHub stars
+- Highly popular with 74,703 GitHub stars
 
-- Widely forked with 8,434 forks indicating community engagement
+- Widely forked with 8,436 forks indicating community engagement
 
 - Related to: allinonehackingtool, besthackingtool, ctf-tools, ddos-attack-tool, hacker
 
 - Licensed under MIT License
 
-- Monitored by 74,685 GitHub users
+- Monitored by 74,703 GitHub users
 
 
 ## 📖 Usage
@@ -125,7 +125,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/Z4nzu/hackingtool
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 
 

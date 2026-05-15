@@ -30,7 +30,7 @@ hermes skills run open-source-ios-apps
 
 - Provides: :iphone: Collaborative List of Open-Source iOS Apps
 
-- Highly popular with 50,286 GitHub stars
+- Highly popular with 50,287 GitHub stars
 
 - Widely forked with 5,775 forks indicating community engagement
 
@@ -38,9 +38,9 @@ hermes skills run open-source-ios-apps
 
 - Licensed under Creative Commons Zero v1.0 Universal
 
-- Substantial codebase (31258 KB)
+- Substantial codebase (31515 KB)
 
-- Monitored by 50,286 GitHub users
+- Monitored by 50,287 GitHub users
 
 
 ## 📖 Usage
@@ -104,7 +104,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/dkhamsing/open-source-ios-apps
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 
 

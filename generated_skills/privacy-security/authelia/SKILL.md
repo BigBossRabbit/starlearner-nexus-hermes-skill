@@ -34,17 +34,17 @@ hermes skills run authelia
 
 - Distributed as Go module
 
-- Highly popular with 27,795 GitHub stars
+- Highly popular with 27,796 GitHub stars
 
-- Widely forked with 1,403 forks indicating community engagement
+- Widely forked with 1,404 forks indicating community engagement
 
 - Related to: 2fa, authentication, docker, golang, kubernetes
 
 - Licensed under Apache License 2.0
 
-- Substantial codebase (76957 KB)
+- Substantial codebase (76961 KB)
 
-- Monitored by 27,795 GitHub users
+- Monitored by 27,796 GitHub users
 
 
 ## 📖 Usage
@@ -127,7 +127,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/authelia/authelia
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://www.authelia.com
 

@@ -34,9 +34,9 @@ hermes skills run ruflo
 
 - Available as npm/yarn package
 
-- Highly popular with 51,423 GitHub stars
+- Highly popular with 51,464 GitHub stars
 
-- Widely forked with 5,768 forks indicating community engagement
+- Widely forked with 5,775 forks indicating community engagement
 
 - Related to: agentic-ai, agentic-framework, agentic-rag, agentic-workflow, agents
 
@@ -44,7 +44,7 @@ hermes skills run ruflo
 
 - Large codebase (520737 KB)
 
-- Monitored by 51,423 GitHub users
+- Monitored by 51,464 GitHub users
 
 
 ## 📖 Usage
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/ruvnet/ruflo
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://Cognitum.One
 

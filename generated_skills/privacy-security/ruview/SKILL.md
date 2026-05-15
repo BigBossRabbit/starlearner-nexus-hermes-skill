@@ -34,9 +34,9 @@ hermes skills run ruview
 
 - Available on crates.io
 
-- Highly popular with 57,212 GitHub stars
+- Highly popular with 57,278 GitHub stars
 
-- Widely forked with 7,517 forks indicating community engagement
+- Widely forked with 7,529 forks indicating community engagement
 
 - Related to: agentic-ai, densepose, esp32, firmware, mcu
 
@@ -44,7 +44,7 @@ hermes skills run ruview
 
 - Large codebase (154393 KB)
 
-- Monitored by 57,212 GitHub users
+- Monitored by 57,278 GitHub users
 
 
 ## 📖 Usage
@@ -122,7 +122,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/ruvnet/RuView
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://Cognitum.One/RuView
 

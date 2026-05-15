@@ -34,17 +34,17 @@ hermes skills run get-shit-done
 
 - Available as npm/yarn package
 
-- Highly popular with 62,419 GitHub stars
+- Highly popular with 62,433 GitHub stars
 
-- Widely forked with 5,299 forks indicating community engagement
+- Widely forked with 5,298 forks indicating community engagement
 
 - Related to: claude-code, context-engineering, meta-prompting, spec-driven-development
 
 - Licensed under MIT License
 
-- Substantial codebase (17740 KB)
+- Substantial codebase (17775 KB)
 
-- Monitored by 62,419 GitHub users
+- Monitored by 62,433 GitHub users
 
 
 ## 📖 Usage
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/gsd-build/get-shit-done
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 
 

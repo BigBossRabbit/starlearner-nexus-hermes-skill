@@ -36,13 +36,13 @@ hermes skills run rocket-chat
 
 - Highly popular with 45,312 GitHub stars
 
-- Widely forked with 13,573 forks indicating community engagement
+- Widely forked with 13,574 forks indicating community engagement
 
 - Related to: chat, collaboration, foss, free, hacktoberfest
 
 - Licensed under Other
 
-- Large codebase (2028673 KB)
+- Large codebase (2028487 KB)
 
 - Monitored by 45,312 GitHub users
 
@@ -128,7 +128,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/RocketChat/Rocket.Chat
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://rocket.chat/
 

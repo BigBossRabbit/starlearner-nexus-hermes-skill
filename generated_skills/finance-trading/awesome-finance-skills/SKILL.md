@@ -34,15 +34,15 @@ hermes skills run awesome-finance-skills
 
 - Can be used as a Python library or package
 
-- Well-known project with 2,162 GitHub stars
+- Well-known project with 2,168 GitHub stars
 
-- Actively developed with 303 forks
+- Actively developed with 304 forks
 
 - Related to: agent, agent-skills, finances, fintech
 
 - Licensed under Apache License 2.0
 
-- Monitored by 2,162 GitHub users
+- Monitored by 2,168 GitHub users
 
 
 ## 📖 Usage
@@ -125,7 +125,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/RKiding/Awesome-finance-skills
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 
 

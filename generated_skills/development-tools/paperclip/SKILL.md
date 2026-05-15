@@ -34,15 +34,15 @@ hermes skills run paperclip
 
 - Available as npm/yarn package
 
-- Highly popular with 65,644 GitHub stars
+- Highly popular with 65,660 GitHub stars
 
-- Widely forked with 11,929 forks indicating community engagement
+- Widely forked with 11,930 forks indicating community engagement
 
 - Licensed under MIT License
 
-- Substantial codebase (60878 KB)
+- Substantial codebase (61081 KB)
 
-- Monitored by 65,644 GitHub users
+- Monitored by 65,660 GitHub users
 
 
 ## 📖 Usage
@@ -126,7 +126,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/paperclipai/paperclip
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 Project homepage: https://paperclip.ing
 

@@ -1,48 +1,44 @@
 # Default skill template for StarLearner-Nexus
 ---
-name: tolaria
-description: "Desktop app to manage markdown knowledge bases"
+name: insanely-fast-whisper
+description: "A skill derived from the insanely-fast-whisper GitHub repository"
 version: "1.1.0"
 author: "GitHub Community (via StarLearner-Nexus)"
 license: "MIT"
-tags: ["education_learning", "typescript", "github-derived", "auto-generated"]
+tags: ["education_learning", "jupyter notebook", "github-derived", "auto-generated"]
 related_skills: ["education-learning-general", "course-manager", "quiz-generator"]
 ---
 
-# tolaria
+# insanely-fast-whisper
 
-Desktop app to manage markdown knowledge bases
+A skill derived from the insanely-fast-whisper GitHub repository
 
 ## 🚀 Quick Start
 
 ```bash
 # Install the skill (if not already installed)
-hermes skills install tolaria --tap BigBossRabbit/starlearner-nexus-hermes-skill
+hermes skills install insanely-fast-whisper --tap BigBossRabbit/starlearner-nexus-hermes-skill
 
 # Run the skill
-hermes skills run tolaria
+hermes skills run insanely-fast-whisper
 ```
 
 ## 🌟 Features
 
 
-- Integrates with tolaria (https://github.com/refactoringhq/tolaria)
+- Integrates with insanely-fast-whisper (https://github.com/Vaibhavs10/insanely-fast-whisper)
 
-- Provides: Desktop app to manage markdown knowledge bases
+- Implemented in Jupyter Notebook
 
-- Implemented in TypeScript
+- Highly popular with 12,889 GitHub stars
 
-- Available as npm/yarn package
+- Actively developed with 954 forks
 
-- Highly popular with 10,728 GitHub stars
+- Licensed under Apache License 2.0
 
-- Actively developed with 769 forks
+- Substantial codebase (10259 KB)
 
-- Licensed under GNU Affero General Public License v3.0
-
-- Substantial codebase (79457 KB)
-
-- Monitored by 10,728 GitHub users
+- Monitored by 12,889 GitHub users
 
 
 ## 📖 Usage
@@ -52,53 +48,47 @@ hermes skills run tolaria
 ```bash
 # Install from your StarLearner-Nexus tap
 hermes skills tap add { github_username }/starlearner-nexus-hermes-skill
-hermes skills install tolaria --tap { github_username }/starlearner-nexus-hermes-skill
+hermes skills install insanely-fast-whisper --tap { github_username }/starlearner-nexus-hermes-skill
 
 # Run the skill
-hermes skills run tolaria
+hermes skills run insanely-fast-whisper
 ```
 
-## TypeScript-Specific Usage
+## Jupyter Notebook-Specific Usage
 
-This skill provides access to a JavaScript/TypeScript repository. You may need to:
-- Install Node.js dependencies: `npm install` or `yarn install`
-- Build the project: `npm run build` or similar
-- Use the provided CLI or API
+This skill provides access to a Jupyter Notebook repository. Refer to the original repository for specific usage instructions.
 
 Example:
 ```bash
 # Clone and use the original repository
-git clone https://github.com/refactoringhq/tolaria
-cd tolaria
-npm install
-# Follow repository-specific usage instructions
+git clone https://github.com/Vaibhavs10/insanely-fast-whisper
+cd insanely-fast-whisper
+# Follow repository-specific setup and usage instructions
 ```
 ## General Usage Tips
 
-- This skill provides convenient access to the tolaria repository within your Hermes agent ecosystem
-- For advanced usage, consult the original repository documentation at: https://github.com/refactoringhq/tolaria
+- This skill provides convenient access to the insanely-fast-whisper repository within your Hermes agent ecosystem
+- For advanced usage, consult the original repository documentation at: https://github.com/Vaibhavs10/insanely-fast-whisper
 - Consider starring the original repository on GitHub if you find it useful
 - Check the repository's issues and discussions for community support and examples
 
 ## Configuration
 
 Some repositories may require environment variables or configuration files. Check:
-- https://github.com/refactoringhq/tolaria/#readme for setup instructions
-- https://github.com/refactoringhq/tolaria/wiki for detailed documentation
-- https://github.com/refactoringhq/tolaria/examples for usage examples
+- https://github.com/Vaibhavs10/insanely-fast-whisper/#readme for setup instructions
+- https://github.com/Vaibhavs10/insanely-fast-whisper/wiki for detailed documentation
+- https://github.com/Vaibhavs10/insanely-fast-whisper/examples for usage examples
 
 
 
 ## 🔧 Installation
 
-The tolaria skill provides access to the repository within your Hermes agent.
+The insanely-fast-whisper skill provides access to the repository within your Hermes agent.
 
 ## Language Runtime
 
-This skill is for a TypeScript repository. Depending on how you plan to use it, you may need to install:
-- Node.js runtime
-- npm or yarn package manager
-- Any Node.js dependencies in package.json
+This skill is for a Jupyter Notebook repository. Depending on how you plan to use it, you may need to install:
+- Jupyter Notebook runtime and development tools
 
 ## Hermes Integration
 
@@ -109,7 +99,7 @@ This skill is designed to work within the Hermes agent ecosystem:
 
 ## Source Verification
 
-- Skill generated from: https://github.com/refactoringhq/tolaria
+- Skill generated from: https://github.com/Vaibhavs10/insanely-fast-whisper
 - Generation includes repository metadata and description
 - For the most current version, refer to the original GitHub repository
 
@@ -125,10 +115,10 @@ If you encounter issues:
 
 ## 📂 Source
 
-This skill was automatically generated from the GitHub repository: https://github.com/refactoringhq/tolaria
+This skill was automatically generated from the GitHub repository: https://github.com/Vaibhavs10/insanely-fast-whisper
 Generated on: 2026-05-15 21:21:46
 Original repository: 
-Project homepage: https://tolaria.md
+
 
 ## 📚 Documentation
 
@@ -140,17 +130,16 @@ For detailed documentation, refer to the original repository:
 
 ## 🛠️ Dependencies
 
-This skill provides access to a TypeScript repository. Actual dependencies depend on how you use the underlying repository:
+This skill provides access to a Jupyter Notebook repository. Actual dependencies depend on how you use the underlying repository:
 
-- Node.js runtime
-- Potential dependencies: Check package.json in the original repository
+- Jupyter Notebook runtime and development tools
 
 Note: This skill provides repository access within Hermes. You may need to install additional tools or libraries depending on your specific use case.
 
 ## 🔄 Updates
 
 This skill will be automatically updated when you run StarLearner-Nexus to refresh your GitHub stars.
-To manually update: `hermes skills update tolaria --tap BigBossRabbit/starlearner-nexus-hermes-skill`
+To manually update: `hermes skills update insanely-fast-whisper --tap BigBossRabbit/starlearner-nexus-hermes-skill`
 
 ## 💬 Support
 

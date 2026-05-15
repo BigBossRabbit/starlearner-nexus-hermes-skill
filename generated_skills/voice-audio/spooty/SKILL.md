@@ -34,7 +34,7 @@ hermes skills run spooty
 
 - Available as npm/yarn package
 
-- Well-known project with 2,040 GitHub stars
+- Well-known project with 2,052 GitHub stars
 
 - Actively developed with 136 forks
 
@@ -42,7 +42,7 @@ hermes skills run spooty
 
 - Licensed under MIT License
 
-- Monitored by 2,040 GitHub users
+- Monitored by 2,052 GitHub users
 
 
 ## 📖 Usage
@@ -126,7 +126,7 @@ If you encounter issues:
 ## 📂 Source
 
 This skill was automatically generated from the GitHub repository: https://github.com/Raiper34/spooty
-Generated on: 2026-05-15 20:53:58
+Generated on: 2026-05-15 21:21:46
 Original repository: 
 
 
