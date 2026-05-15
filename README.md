@@ -2,8 +2,6 @@
 
 **Automatically turn your GitHub starred repositories into usable Hermes Agent skills.**
 
-![StarLearner-Nexus Demo](https://via.placeholder.com/800x400/0066CC/FFFFFF?text=StarLearner-Nexus+Skill+Generator)
-
 ## 🌟 What This Does
 
 StarLearner-Nexus is a Hermes Agent skill that transforms your GitHub starred repositories into a personalized, automatically-updating library of Hermes skills. Instead of manually creating skills for every interesting repo you find, this skill:
