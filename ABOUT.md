@@ -79,4 +79,3 @@ starlearner-nexus/
 ---
 
 *Transform your GitHub stars into AI skills automatically. Star a repo today, use it as a Hermes skill tomorrow.* 🌟
-EOF
