@@ -1,0 +1,31 @@
+# Default skill template for StarLearner-Nexus
+---
+name: {{ skill_name }}
+description: "{{ skill_description }}"
+version: "{{ version }}"
+author: "{{ author }}"
+license: "{{ license }}"
+tags: {{ tags | tojson }}
+related_skills: {{ related_skills | tojson }}
+---
+# {{ skill_name }}
+
+{{ skill_description }}
+
+## Features
+{% for feature in features %}
+- {{ feature }}
+{% endfor %}
+
+## Usage
+```bash
+# Example usage
+{{ usage_example }}
+```
+
+## Installation
+The skill is ready to use! No additional installation required.
+
+## Source
+This skill was automatically generated from the GitHub repository: {{ repo_url }}
+Generated on: {{ generation_date }}

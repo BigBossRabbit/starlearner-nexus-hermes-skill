@@ -1,0 +1,113 @@
+{
+  "bitcoin-lightning": {
+    "name": "Bitcoin & Lightning Network",
+    "keywords": ["bitcoin", "btc", "lightning", "ln", "satoshi", "wallet", 
+               "node", "lnd", "clightning", "eclair", "bolt", "invoice", 
+               "payment", "channel", "routing", "taproot", "segwit",
+               "lightning-network", "lnurl", "lightning-address", "lightning-pay"],
+    "icon": "💰"
+  },
+  "ai-ml": {
+    "name": "AI & Machine Learning",
+    "keywords": ["ai", "artificial intelligence", "machine learning", "ml", 
+               "deep learning", "neural network", "nlp", "computer vision", 
+               "tensorflow", "pytorch", "keras", "scikit-learn", "model", 
+               "training", "inference", "llm", "gpt", "bert", "transformer",
+               "stable-diffusion", "midjourney", "dall-e", "embedding", "vector"],
+    "icon": "🤖"
+  },
+  "privacy-security": {
+    "name": "Privacy & Security",
+    "keywords": ["privacy", "security", "encryption", "cryptography", "hash", 
+               "ssl", "tls", "vpn", "tor", "anonymous", "zero knowledge", 
+               "zkp", "secure", "auth", "oauth", "jwt", "password", 
+               "firewall", "ids", "ips", "malware", "antivirus", "pgp", "gpg",
+               "signal", "telegram", "privacy-coin", "monero", "zcash"],
+    "icon": "🔒"
+  },
+  "finance-trading": {
+    "name": "Finance & Trading",
+    "keywords": ["finance", "financial", "trading", "trade", "stock", "crypto", 
+               "defi", "dex", "exchange", "wallet", "portfolio", "analytics", 
+               "quantitative", "algo", "algorithm", "backtest", "ohlc", 
+               "candlestick", "forex", "fx", "banking", "payment", "invoice",
+               "trading-bot", "quantconnect", "binance", "coinbase", "kraken"],
+    "icon": "📈"
+  },
+  "development-tools": {
+    "name": "Development Tools",
+    "keywords": ["devops", "ci/cd", "pipeline", "build", "test", "testing", 
+               "framework", "library", "sdk", "api", "cli", "ide", "editor", 
+               "debugger", "profiler", "linter", "formatter", "package", 
+               "dependency", "maven", "gradle", "npm", "yarn", "pip", 
+               "docker", "kubernetes", "k8s", "container", "orchestration",
+               "terraform", "ansible", "puppet", "chef", "vagrant", "helm"],
+    "icon": "🛠️"
+  },
+  "social-media": {
+    "name": "Social Media",
+    "keywords": ["social", "media", "facebook", "twitter", "x", "instagram", 
+               "tiktok", "linkedin", "youtube", "reddit", "discord", 
+               "slack", "messaging", "chat", "forum", "community", 
+               "network", "sharing", "content", "influencer", "marketing",
+               "social-network", "community-platform", "discord-bot", "twitter-bot"],
+    "icon": "📱"
+  },
+  "health-wellness": {
+    "name": "Health & Wellness",
+    "keywords": ["health", "wellness", "fitness", "exercise", "workout", 
+               "nutrition", "diet", "medical", "healthcare", "hospital", 
+               "clinic", "telemedicine", "mental health", "therapy", 
+               "meditation", "mindfulness", "sleep", "vitamin", "supplement",
+               "fitness-tracker", "health-app", "meditation-app", "nutrition-tracker"],
+    "icon": "❤️"
+  },
+  "travel-exploration": {
+    "name": "Travel & Exploration",
+    "keywords": ["travel", "trip", "tourism", "flight", "hotel", "booking", 
+               "navigation", "map", "gps", "geolocation", "trail", "hiking", 
+               "camping", "adventure", "explore", "guide", "itinerary", 
+               "vacation", "holiday", "destination", "itinerary",
+               "trip-planner", "travel-guide", "flight-tracker", "hotel-booking"],
+    "icon": "✈️"
+  },
+  "voice-audio": {
+    "name": "Voice & Audio",
+    "keywords": ["voice", "audio", "speech", "tts", "stt", "text-to-speech", 
+               "speech-to-text", "recognize", "synthesize", "vocoder", 
+               "audio processing", "sound", "music", "dsp", "filter", 
+               "equalizer", "mixer", "recorder", "podcast", "audiobook",
+               "speech-recognition", "text-to-speech", "voice-cloning", "audio-enhancement"],
+    "icon": "🎙️"
+  },
+  "video-streaming": {
+    "name": "Video & Streaming",
+    "keywords": ["video", "stream", "streaming", "youtube", "twitch", 
+               "videoconference", "meeting", "call", "livestream", 
+               "broadcast", "encoding", "decoding", "codec", "h264", 
+               "h265", "vp9", "av1", "rtmp", "webrtc", "ffmpeg", "gstreamer", 
+               "transcode", "mux", "demux", "subtitle", "caption",
+               "video-downloader", "live-streaming", "video-converter", "video-editor"],
+    "icon": "🎥"
+  },
+  "education-learning": {
+    "name": "Education & Learning",
+    "keywords": ["education", "learning", "tutorial", "course", "lesson", 
+               "training", "workshop", "guide", "documentation", "ebook", 
+               "mooc", "curriculum", "syllabus", "quiz", "assignment", 
+               "homework", "exam", "test", "certification", "certify", 
+               "skill", "knowledge", "academy", "university", "college",
+               "online-course", "learning-platform", "tutorial-site", "knowledge-base"],
+    "icon": "📚"
+  },
+  "gaming-entertainment": {
+    "name": "Gaming & Entertainment",
+    "keywords": ["game", "gaming", "player", "multiplayer", "singleplayer", 
+               "2d", "3d", "unity", "unreal", "engine", "physics", 
+               "rendering", "graphics", "shader", "texture", "model", 
+               "animation", "sprite", "tile", "level", "world", "scene", 
+               "quest", "level", "score", "leaderboard", "achievement",
+               "game-engine", "game-framework", "multiplayer-game", "indie-game"],
+    "icon": "🎮"
+  }
+}

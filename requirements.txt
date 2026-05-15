@@ -1,0 +1,6 @@
+# Requirements for StarLearner-Nexus skill
+# The skill primarily uses bash and Python with standard libraries
+# For enhanced functionality, you may want to install:
+jinja2>=3.0.0
+PyYAML>=6.0
+requests>=2.25.0
