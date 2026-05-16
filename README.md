@@ -151,6 +151,10 @@ Found a repo that isn't categorizing correctly? Want to improve the templates?
 - Relies on community-powered categorization through keyword matching
 - Inspired by the desire to make skill creation as effortless as starring a repo
 
+## 💝 Support This Project
+
+If you find this project useful, please consider supporting its development with a donation. You can send Bitcoin to `bc1qrdc653jpc6psactzdgayl9xa5h3y5etycpdn8r` or via Lightning to `okin@blink.sv`. Your contributions help keep the project alive and improve it for everyone. Thank you!
+
 ---
 
 ## 📬 Ready to Use Your Stars as Skills?
