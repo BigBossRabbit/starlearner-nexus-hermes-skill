@@ -79,6 +79,33 @@ To have new starred repos automatically generate skills:
    ```
 3. Save and exit - your skill library will now update daily!
 
+
+
+## 🔧 Usage
+
+To use StarLearner-Nexus after installation:
+
+1. **Manual Sync**: Run the skill anytime to process your current starred repos:
+   ```bash
+   hermes skills run starlearner-nexus --script daily_sync.sh
+   ```
+
+2. **View Generated Skills**: After running, check the generated skills:
+   ```bash
+   ls ~/.hermes/skills/starlearner-nexus/generated_skills/
+   ```
+
+3. **Install a Specific Skill**: Install any generated skill:
+   ```bash
+   hermes skills install starlearner-nexus/<category>/<repo-name>
+   ```
+   Example: `hermes skills install starlearner-nexus/ai-ml/everything-claude-code`
+
+4. **Update Specific Category**: Update just one category of skills:
+   ```bash
+   hermes skills run starlearner-nexus --script generate_skills.py
+   ```
+
 ## 📁 Repository Structure
 
 ```
