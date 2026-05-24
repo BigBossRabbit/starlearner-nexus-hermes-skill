@@ -1,0 +1,66 @@
+<svg width="1200" height="400" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a237e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0e27;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="text" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd700;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bg)" />
+  
+  <!-- Stars background -->
+  <circle cx="100" cy="80" r="1" fill="white" opacity="0.8"/>
+  <circle cx="200" cy="120" r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="350" cy="60" r="1" fill="white" opacity="0.9"/>
+  <circle cx="450" cy="100" r="2" fill="white" opacity="0.7"/>
+  <circle cx="600" cy="90" r="1" fill="white" opacity="0.8"/>
+  <circle cx="750" cy="110" r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="900" cy="70" r="1" fill="white" opacity="0.9"/>
+  <circle cx="1050" cy="100" r="2" fill="white" opacity="0.7"/>
+  <circle cx="150" cy="300" r="1" fill="white" opacity="0.8"/>
+  <circle cx="300" cy="350" r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="500" cy="320" r="1" fill="white" opacity="0.9"/>
+  <circle cx="700" cy="340" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="950" cy="330" r="1" fill="white" opacity="0.8"/>
+  <circle cx="1100" cy="350" r="2" fill="white" opacity="0.6"/>
+  
+  <!-- Main title -->
+  <text x="600" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="url(#text)">
+    StarLearner-Nexus
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" opacity="0.9">
+    Turn GitHub Stars into Hermes Skills
+  </text>
+  
+  <!-- Decorative elements -->
+  <rect x="50" y="260" width="1100" height="2" fill="url(#text)" opacity="0.5"/>
+  
+  <!-- Code snippets/icons -->
+  <rect x="100" y="280" width="30" height="30" fill="#ffd700" opacity="0.3" rx="3"/>
+  <text x="115" y="300" text-anchor="middle" font-family="monospace" font-size="14" fill="#ffffff">skill</text>
+  
+  <rect x="180" y="280" width="30" height="30" fill="#ffd700" opacity="0.3" rx="3"/>
+  <text x="195" y="300" text-anchor="middle" font-family="monospace" font-size="14" fill="#ffffff">star</text>
+  
+  <rect x="260" y="280" width="30" height="30" fill="#ffd700" opacity="0.3" rx="3"/>
+  <text x="275" y="300" text-anchor="middle" font-family="monospace" font-size="14" fill="#ffffff">repo</text>
+  
+  <rect x="1020" y="280" width="30" height="30" fill="#ffd700" opacity="0.3" rx="3"/>
+  <text x="1035" y="300" text-anchor="middle" font-family="monospace" font-size="14" fill="#ffffff">auto</text>
+  
+  <rect x="1100" y="280" width="30" height="30" fill="#ffd700" opacity="0.3" rx="3"/>
+  <text x="1115" y="300" text-anchor="middle" font-family="monospace" font-size="14" fill="#ffffff">sync</text>
+  
+  <!-- GitHub stars -->
+  <polygon points="600,250 605,265 620,265 608,275 613,290 600,280 587,290 592,275 580,265 595,265" fill="#ffd700" opacity="0.6"/>
+</svg>

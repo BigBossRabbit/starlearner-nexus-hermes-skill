@@ -1,5 +1,7 @@
 # StarLearner-Nexus for Hermes Agent
 
+[![Banner](banner.svg)](https://github.com/BigBossRabbit/starlearner-nexus-hermes-skill)
+
 **Automatically turn your GitHub starred repositories into usable Hermes Agent skills.**
 
 ## 🌟 What This Does
