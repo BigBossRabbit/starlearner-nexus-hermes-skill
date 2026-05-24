@@ -1,0 +1,175 @@
+<svg width="1200" height="400" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Advanced gradients -->
+    <linearGradient id="spaceBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#1a237e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#283593;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#1a237e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0e27;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#ffeb3b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fff59d;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#ffeb3b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd700;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#64b5f6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2196f3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#64b5f6;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#spaceBg)"/>
+  
+  <!-- Dynamic starfield -->
+  <g opacity="0.8">
+    <circle cx="100" cy="80" r="1" fill="white">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="120" r="1.5" fill="white">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="350" cy="60" r="1" fill="white">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="100" r="2" fill="white">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="90" r="1" fill="white">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="750" cy="110" r="1.5" fill="white">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="900" cy="70" r="1" fill="white">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2.7s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1050" cy="100" r="2" fill="white">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="3.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="300" r="1" fill="white">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="3.1s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="350" r="1.5" fill="white">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="2.9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="320" r="1" fill="white">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="3.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="700" cy="340" r="1.5" fill="white">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="950" cy="330" r="1" fill="white">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="3.7s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1100" cy="350" r="2" fill="white">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="3.3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Orbiting stars around main title -->
+  <g transform="translate(600, 180)">
+    <animateTransform attributeName="transform" type="rotate" values="0;360" dur="20s" repeatCount="indefinite"/>
+    <circle cx="0" cy="-80" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="80" cy="0" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="0" cy="80" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="-80" cy="0" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="57" cy="-57" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="-57" cy="-57" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="57" cy="57" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="-57" cy="57" r="1" fill="url(#goldGradient)" opacity="0.8"/>
+  </g>
+  
+  <!-- Main title with gradient -->
+  <text x="600" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="url(#goldGradient)" filter="url(#glow)">
+    StarLearner-Nexus
+  </text>
+  
+  <!-- Subtitle with animation -->
+  <text x="600" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#ffffff" opacity="0.9" filter="url(#shadow)">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="4s" repeatCount="indefinite"/>
+    Turn GitHub Stars into Hermes Skills
+  </text>
+  
+  <!-- Decorative lines -->
+  <rect x="100" y="250" width="1000" height="2" fill="url(#goldGradient)" opacity="0.5"/>
+  
+  <!-- Interactive elements -->
+  <g transform="translate(150, 280)">
+    <rect x="0" y="0" width="40" height="40" fill="url(#blueGradient)" opacity="0.3" rx="5" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <text x="20" y="28" text-anchor="middle" font-family="monospace" font-size="12" fill="url(#goldGradient)" filter="url(#shadow)">skill</text>
+  </g>
+  
+  <g transform="translate(250, 280)">
+    <rect x="0" y="0" width="40" height="40" fill="url(#blueGradient)" opacity="0.3" rx="5" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.5s" repeatCount="indefinite"/>
+    </rect>
+    <text x="20" y="28" text-anchor="middle" font-family="monospace" font-size="12" fill="url(#goldGradient)" filter="url(#shadow)">star</text>
+  </g>
+  
+  <g transform="translate(350, 280)">
+    <rect x="0" y="0" width="40" height="40" fill="url(#blueGradient)" opacity="0.3" rx="5" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <text x="20" y="28" text-anchor="middle" font-family="monospace" font-size="12" fill="url(#goldGradient)" filter="url(#shadow)">repo</text>
+  </g>
+  
+  <g transform="translate(850, 280)">
+    <rect x="0" y="0" width="40" height="40" fill="url(#blueGradient)" opacity="0.3" rx="5" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.2s" repeatCount="indefinite"/>
+    </rect>
+    <text x="20" y="28" text-anchor="middle" font-family="monospace" font-size="12" fill="url(#goldGradient)" filter="url(#shadow)">auto</text>
+  </g>
+  
+  <g transform="translate(950, 280)">
+    <rect x="0" y="0" width="40" height="40" fill="url(#blueGradient)" opacity="0.3" rx="5" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.8s" repeatCount="indefinite"/>
+    </rect>
+    <text x="20" y="28" text-anchor="middle" font-family="monospace" font-size="12" fill="url(#goldGradient)" filter="url(#shadow)">sync</text>
+  </g>
+  
+  <!-- Central GitHub star with pulsing -->
+  <g transform="translate(600, 250)">
+    <polygon points="0,-15 4,-4 15,-4 6,2 10,13 0,6 -10,13 -6,2 -15,-4 -4,-4" fill="url(#goldGradient)" opacity="0.8" filter="url(#glow)">
+      <animateTransform attributeName="transform" type="scale" values="1;1.2;1" dur="2s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  
+  <!-- Floating particles -->
+  <g opacity="0.6">
+    <circle cx="200" cy="200" r="1" fill="url(#goldGradient)">
+      <animate attributeName="cy" values="200;180;200" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="400" cy="150" r="1" fill="url(#goldGradient)">
+      <animate attributeName="cy" values="150;130;150" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="800" cy="180" r="1" fill="url(#goldGradient)">
+      <animate attributeName="cy" values="180;160;180" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1000" cy="200" r="1" fill="url(#goldGradient)">
+      <animate attributeName="cy" values="200;180;200" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
