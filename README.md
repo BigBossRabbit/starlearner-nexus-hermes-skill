@@ -1,10 +1,10 @@
 # StarLearner-Nexus for Hermes Agent
 
-[![Banner](banner.svg)](https://github.com/BigBossRabbit/starlearner-nexus-hermes-skill)
+[![Banner](banner-ultra-cool.svg)](https://github.com/BigBossRabbit/starlearner-nexus-hermes-skill)
 
 **Automatically turn your GitHub starred repositories into usable Hermes Agent skills.**
 
-## 🚀 Overview
+## 🌟 What This Does
 
 StarLearner-Nexus is a Hermes Agent skill that transforms your GitHub starred repositories into a personalized, automatically-updating library of Hermes skills. Instead of manually creating skills for every interesting repo you find, this skill:
 
@@ -15,23 +15,29 @@ StarLearner-Nexus is a Hermes Agent skill that transforms your GitHub starred re
 
 Once set up, your GitHub star collection becomes a living skill library that grows with your interests.
 
-## 🌟 Features
+## 🔑 How It Works (The Magic Behind the Scenes)
 
-- **Automated Repository Ingestion**: Fetches your starred repos from GitHub API
-- **Intelligent Categorization**: Sorts repositories by topic using keyword matching
-- **Skill Generation**: Creates complete Hermes skills (.SKILL.md) from repo data
-- **Automatic Updates**: Daily sync keeps your skill library current
-- **Multiple Categories**: Supports AI/ML, development tools, privacy, finance, and more
-- **Easy Installation**: Simple tap, install, and configure workflow
-- **Cron-Ready**: Designed for automatic daily execution via cron job
+The skill uses four interconnected scripts that work together:
 
-## 📋 Requirements
+| Script | Purpose | Automation |
+|--------|---------|------------|
+| `fetch_starred_repos.sh` | Pulls your starred repositories from GitHub API (requires personal access token) | Can be cronned |
+| `categorize_repos.py` | Sorts repos into topical categories using keyword matching (AI, crypto, dev tools, privacy, etc.) | Runs after fetch |
+| `generate_skills.py` | Creates complete Hermes skill files (.SKILL.md) from categorized repo data using Jinja2 templates | Runs after categorization |
+| `daily_sync.sh` | Orchestrates the full pipeline (fetch → categorize → generate) | Designed for daily cron execution |
 
+**After initial setup**, simply:
+1. Star interesting repositories on GitHub
+2. Let your daily cron job run (or manually execute `daily_sync.sh`)
+3. New skills appear automatically in your Hermes skills directory
+
+## 🚀 Quick Start
+
+### Prerequisites
 - Hermes Agent installed ([install guide](https://hermes-agent.nousresearch.com/docs/user-guide/installation))
 - GitHub Personal Access Token ([create one](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)) with `public_repo` scope
 
-## ⚙️ Installation
-
+### Installation
 1. Tap the skill repository:
    ```bash
    hermes skills tap add https://github.com/BigBossRabbit/starlearner-nexus-hermes-skill
@@ -53,61 +59,16 @@ Once set up, your GitHub star collection becomes a living skill library that gro
    hermes skills run starlearner-nexus --script daily_sync.sh
    ```
 
-## 🔑 How It Works (The Magic Behind the Scenes)
-
-The skill uses four interconnected scripts that work together:
-
-| Script | Purpose | Automation |
-|--------|---------|------------|
-| `fetch_starred_repos.sh` | Pulls your starred repositories from GitHub API (requires personal access token) | Can be cronned |
-| `categorize_repos.py` | Sorts repos into topical categories using keyword matching (AI, crypto, dev tools, privacy, etc.) | Runs after fetch |
-| `generate_skills.py` | Creates complete Hermes skill files (.SKILL.md) from categorized repo data using Jinja2 templates | Runs after categorization |
-| `daily_sync.sh` | Orchestrates the full pipeline (fetch → categorize → generate) | Designed for daily cron execution |
-
-**After initial setup**, simply:
-1. Star interesting repositories on GitHub
-2. Let your daily cron job run (or manually execute `daily_sync.sh`)
-3. New skills appear automatically in your Hermes skills directory
-
-## 🔄 Setting Up Automatic Updates
-
+### 🔄 Setting Up Automatic Updates
 To have new starred repos automatically generate skills:
 1. Edit your crontab: `crontab -e`
 2. Add this line (runs daily at 2 AM):
    ```
-   0 2 * * * /path/to/.hermes/skills/starlearner-nexus/scripts/daily_sync.sh >> /path/to/.hermes/skills/starlearner-nexus/logs/starlearner-nexus-cron.log 2>&1
+   0 2 * * * /path/to/.hermes/skills/starlearner-nexus/scripts/daily_sync.sh >> /path/to/.hermes/logs/starlearner-nexus-cron.log 2>&1
    ```
 3. Save and exit - your skill library will now update daily!
 
-
-
-## 🔧 Usage
-
-To use StarLearner-Nexus after installation:
-
-1. **Manual Sync**: Run the skill anytime to process your current starred repos:
-   ```bash
-   hermes skills run starlearner-nexus --script daily_sync.sh
-   ```
-
-2. **View Generated Skills**: After running, check the generated skills:
-   ```bash
-   ls ~/.hermes/skills/starlearner-nexus/generated_skills/
-   ```
-
-3. **Install a Specific Skill**: Install any generated skill:
-   ```bash
-   hermes skills install starlearner-nexus/<category>/<repo-name>
-   ```
-   Example: `hermes skills install starlearner-nexus/ai-ml/everything-claude-code`
-
-4. **Update Specific Category**: Update just one category of skills:
-   ```bash
-   hermes skills run starlearner-nexus --script generate_skills.py
-   ```
-
 ## 📁 Repository Structure
-
 ```
 starlearner-nexus/
 ├── SKILL.md                  # The Hermes skill itself (this repository)
@@ -130,7 +91,6 @@ starlearner-nexus/
 ```
 
 ## 🛠️ What Gets Generated
-
 For each starred repository, StarLearner-Nexus creates a complete Hermes skill including:
 - Proper SKILL.md YAML frontmatter (name, description, version, author)
 - Detailed description explaining what the original repo does
@@ -153,7 +113,6 @@ For each starred repository, StarLearner-Nexus creates a complete Hermes skill i
   - ...and more based on content analysis
 
 ## 💡 Example Generated Skills
-
 After running the sync, you might see skills like:
 - `starlearner-nexus/generated_skills/ai-ml/everything-claude-code/SKILL.md`
 - `starlearner-nexus/generated_skills/development-tools/shannon/SKILL.md`
@@ -169,80 +128,38 @@ Each skill contains:
 - Links to documentation and source
 
 ## ⚙️ Configuration Options
-
 You can customize the behavior by editing:
 - `references/categories.json` - Modify keyword mappings for better categorization
 - `references/skill_templates/default_skill.md.j2` - Change the output skill template
 - Scripts themselves - Adjust fetch limits, categorization logic, etc.
 
 ## 📝 Notes & Best Practices
-
 - **GitHub Token Security**: Your token is stored securely in Hermes' credential system (not in plain text)
 - **Rate Limits**: The script respects GitHub API rate limits (includes delays between requests)
 - **Private Repos**: Only processes public repositories by default (to avoid token overexposure)
 - **Updates**: Re-runs will update existing skills if the source repo changes significantly (stars, forks, description)
 - **Manual Override**: You can always manually edit generated skills - they won't be overwritten unless you re-run the full sync for that specific repo
 
-## 🔧 Troubleshooting
-
-### No Skills Generated
-
-- Verify your GitHub token is configured: `hermes auth list`
-- Check that you have starred public repositories on GitHub
-- Verify network connectivity to GitHub API
-- Check execution logs: `cat ~/.hermes/skills/starlearner-nexus/logs/starlearner-nexus-*.log`
-
-### GitHub API Rate Limits
-
-- The script includes basic rate limiting and delays
-- For large star collections (>500 repos), consider using a GitHub Personal Access Token for higher limits
-- Wait and retry if you encounter rate limit errors
-
-## 🎯 Customization
-
-### Adjust Processing Limits
-
-Edit the scripts to change how many repositories are processed:
-- Modify `fetch_starred_repos.sh` to adjust API call limits
-- Edit `generate_skills.py` to change the number of skills per category (currently top 5 by stars)
-
-### Modify Categorization Rules
-
-Edit `references/categories.json` to:
-- Add/remove domains or adjust keywords
-- Change how repositories are classified into topics
-- Improve accuracy for your specific star collection
-
-### Change Schedule
-
-Update the cronjob schedule using your preferred cron editor:
-```
-# To change from daily 2 AM to daily 9 AM:
-0 9 * * * /path/to/.hermes/skills/starlearner-nexus/scripts/daily_sync.sh
-```
-
-## 💝 Support This Project
-
-If you find this project useful, please consider supporting its development with a donation. You can send Bitcoin to `bc1qrdc653jpc6psactzdgayl9xa5h3y5etycpdn8r` or via Lightning to `okin@blink.sv`. Your contributions help keep the project alive and improve it for everyone. Thank you!
+## 🤝 Contributing
+Found a repo that isn't categorizing correctly? Want to improve the templates?
+1. Fork this repository
+2. Make your changes to `categories.json` or `skill_templates/`
+3. Submit a pull request - I'll review and merge!
+4. Star interesting repos to help improve the categorization keywords over time
 
 ## 🙏 Acknowledgements
-
 - Built for [Hermes Agent](https://hermes-agent.nousresearch.com/) by Nous Research
 - Uses GitHub API v3 for repository data
 - Relies on community-powered categorization through keyword matching
 - Inspired by the desire to make skill creation as effortless as starring a repo
 
-<<<<<<< HEAD
 ## 💝 Support This Project
 
 If you find this project useful, please consider supporting its development with a donation. You can send Bitcoin to `bc1qrdc653jpc6psactzdgayl9xa5h3y5etycpdn8r` or via Lightning to `okin@blink.sv`. Your contributions help keep the project alive and improve it for everyone. Thank you!
 
 ---
 
-=======
->>>>>>> 8337ebbba3bef13d9dc5307ef4e2f73884e6fa9b
 ## 📬 Ready to Use Your Stars as Skills?
-
 1. **[Tap the skill](hermes skills tap add https://github.com/BigBossRabbit/starlearner-nexus-hermes-skill)**
 2. **[Install it](hermes skills install starlearner-nexus)**
 3. **[Add your GitHub token](hermes auth add github-token)**
@@ -251,9 +168,4 @@ If you find this project useful, please consider supporting its development with
 
 Your next starred repo on GitHub could be tomorrow's new Hermes skill - all automatically generated. 🌟
 
-<<<<<<< HEAD
 *Happy skill collecting!* 🚀
-=======
-*Happy skill collecting!* 🚀
-
->>>>>>> 8337ebbba3bef13d9dc5307ef4e2f73884e6fa9b
