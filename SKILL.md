@@ -248,7 +248,16 @@ This skill provides tools for interacting with Lightning Network Daemon (LND) to
 
 ## 🤝 Troubleshooting
 
-### Common Issues\n\n| Symptom | Solution |\n|---------|----------|\n| `gh: command not found` | Install GitHub CLI or ensure GITHUB_TOKEN is set |\n| API rate limit errors | Wait and retry, or configure GITHUB_TOKEN for higher limits |\n| Permission denied on Python scripts | Run `chmod +x ~/.hermes/skills/starlearner-nexus/scripts/*.py` |\n| Python module missing | Install required packages: `pip install -r ~/.hermes/skills/starlearner-nexus/requirements.txt` |\n| No skills generated | Check that you have starred repositories in the target domains |\n| Skill generation fails with 'NoneType' error | This occurs when repository data contains null values; check the logs for the specific repository and consider manual skill creation for problematic repos |
+### Common Issues
+
+| Symptom | Solution |
+|---------|----------|
+| `gh: command not found` | Install GitHub CLI or ensure GITHUB_TOKEN is set |
+| API rate limit errors | Wait and retry, or configure GITHUB_TOKEN for higher limits |
+| Permission denied on Python scripts | Run `chmod +x ~/.hermes/skills/starlearner-nexus/scripts/*.py` |
+| Python module missing | Install required packages: `pip install -r ~/.hermes/skills/starlearner-nexus/requirements.txt` |
+| No skills generated | Check that you have starred repositories in the target domains |
+| Skill generation fails with 'NoneType' error | This occurs when repository data contains null values; check the logs for the specific repository and consider manual skill creation for problematic repos |
 
 ### Getting Help
 1. Check logs: `cat ~/.hermes/skills/starlearner-nexus/logs/starlearner-nexus.log`
@@ -256,7 +265,56 @@ This skill provides tools for interacting with Lightning Network Daemon (LND) to
 3. Validate configuration: Ensure GITHUB_TOKEN is accessible via `echo $GITHUB_TOKEN`
 4. Test components individually: Try running `scripts/fetch_starred_repos.sh` directly
 
-## 📈 Marketplace Publishing\\n\\nTo publish a generated skill to the Hermes marketplace:\\n\\n1. Navigate to the generated skill directory:\\n   ```bash\\n   cd ~/.hermes/skills/starlearner-nexus/generated_skills/bitcoin-lightning/lnd/\\n   ```\\n\\n2. Ensure the SKILL.md is complete and follows conventions:\\n   ```bash\\n   hermes skill view lnd-lightning-node\\n   ```\\n\\n3. **Security Check**: Verify no credentials are embedded in the skill:\\n   - Check that no GitHub tokens, API keys, or passwords are present in SKILL.md\\n   - Confirm that generated skills contain only public repository information\\n   - Ensure any example commands don't include sensitive data\\n\\n4. Package and submit:\\n   ```bash\\n   # Create a zip of the skill directory\\n   zip -r lnd-lightning-node.zip .\\n   \\n   # Submit via Hermes marketplace interface or GitHub PR\\n   hermes skills submit lnd-lightning-node.zip\\n   ```\\n\\n### Handling Security Scanner False Positives\\n\\nWhen publishing skills that cover domains like cryptocurrency, finance, or development tools, the Hermes security scanner may flag legitimate content as dangerous. Common false positives include:\\n\\n- **.env instructions**: Educational content about creating `.env` files for user configuration\\n- **Cryptocurrency terms**: Category labels or references to crypto projects (not mining instructions)\\n- **GitHub token usage**: Scripts that expect tokens from environment variables (not hardcoded)\\n- **git clone URLs**: Example repository references in generated skill documentation\\n\\nIf your skill receives a DANGEROUS verdict due to these false positives:\\n\\n1. Document the specific false positive findings from the security scan\\n2. Explain why each flagged item is legitimate educational/reference content\\n3. Request human review to override the verdict through the Hermes team\\n4. Once approved, use `--force` flag or follow the approved override process\\n\\nExample justification notes:\\n- \".env instructions are for user configuration, not data exfiltration\"\\n- \"Crypto terms are category labels for organizing repos, not mining facilitation\"\\n- \"GitHub token usage expects user-provided environment variables, not hardcoded credentials\"\\n- \"git clone URLs are examples of repositories the skill helps users interact with\"\n
+## 📈 Marketplace Publishing
+
+To publish a generated skill to the Hermes marketplace:
+
+1. Navigate to the generated skill directory:
+   ```bash
+   cd ~/.hermes/skills/starlearner-nexus/generated_skills/bitcoin-lightning/lnd/
+   ```
+
+2. Ensure the SKILL.md is complete and follows conventions:
+   ```bash
+   hermes skill view lnd-lightning-node
+   ```
+
+3. **Security Check**: Verify no credentials are embedded in the skill:
+   - Check that no GitHub tokens, API keys, or passwords are present in SKILL.md
+   - Confirm that generated skills contain only public repository information
+   - Ensure any example commands don't include sensitive data
+
+4. Package and submit:
+   ```bash
+   # Create a zip of the skill directory
+   zip -r lnd-lightning-node.zip .
+   
+   # Submit via Hermes marketplace interface or GitHub PR
+   hermes skills submit lnd-lightning-node.zip
+   ```
+
+### Handling Security Scanner False Positives
+
+When publishing skills that cover domains like cryptocurrency, finance, or development tools, the Hermes security scanner may flag legitimate content as dangerous. Common false positives include:
+
+- **.env instructions**: Educational content about creating `.env` files for user configuration
+- **Cryptocurrency terms**: Category labels or references to crypto projects (not mining instructions)
+- **GitHub token usage**: Scripts that expect tokens from environment variables (not hardcoded)
+- **git clone URLs**: Example repository references in generated skill documentation
+
+If your skill receives a DANGEROUS verdict due to these false positives:
+
+1. Document the specific false positive findings from the security scan
+2. Explain why each flagged item is legitimate educational/reference content
+3. Request human review to override the verdict through the Hermes team
+4. Once approved, use `--force` flag or follow the approved override process
+
+Example justification notes:
+- ".env instructions are for user configuration, not data exfiltration"
+- "Crypto terms are category labels for organizing repos, not mining facilitation"
+- "GitHub token usage expects user-provided environment variables, not hardcoded credentials"
+- "git clone URLs are examples of repositories the skill helps users interact with"
+
 ## 🔄 Continuous Improvement
 
 StarLearner-Nexus learns and improves over time:
@@ -281,20 +339,25 @@ chmod +x ~/.hermes/skills/starlearner-nexus/scripts/*.sh
 
 **Preferred Orchestrator Pattern**: As an Orchestrator, delegate StarLearner-Nexus as a task to leverage all available Hermes tools:
 ```bash
-hermes delegate_task \\
-  --goal "Process my GitHub starred repositories and generate AI skills from them" \\
-  --toolsets "['web', 'terminal', 'file', 'skills']" \\
+hermes delegate_task \
+  --goal "Process my GitHub starred repositories and generate AI skills from them" \
+  --toolsets "['web', 'terminal', 'file', 'skills']" \
   --context "Generate skills in ~/.hermes/skills/starlearner-nexus/generated_skills/"
 ```
 
 **Credential Verification**: For security verification, confirm that each Hermes profile uses its own dedicated API key by running:
 ```bash
-hermes profile show orchestrator
-hermes profile show alan
-hermes profile show mira
-hermes profile show turing
+hermes profile show thanos
+hermes profile show brainiac
+hermes profile show riddler
+hermes profile show loki
+hermes profile show doctor-doom
+hermes profile show lex-luthor
+hermes profile show kingpin
+hermes profile show watcher
+hermes profile show joker
 ```
-Each should show unique environment variable references (VICTOR_API_KEY, OKIN_API_KEY, TNNB_API_KEY, GITHUB_API_KEY respectively).
+Each Legion profile should reference its own dedicated API key. No profile should share or inherit another profile's key.
 
 ---
 *StarLearner-Nexus - Where your curiosity becomes collective intelligence. Transform your GitHub stars into a galaxy of reusable AI skills! 🌟*

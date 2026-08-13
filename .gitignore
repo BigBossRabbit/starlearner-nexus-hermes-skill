@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Generated data (large, machine-produced — do not commit)
+data/*.json
+logs/*.log
+!logs/.gitkeep
+
+# Generated skills (output artifacts)
+generated_skills/
+
+# Editor
+.vscode/
+.idea/

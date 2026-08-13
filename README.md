@@ -2,7 +2,7 @@
 
 **Automatically turn your GitHub starred repositories into usable Hermes Agent skills.**
 
-![StarLearner-Nexus Banner](assets/starlearner-banner.svg)
+![StarLearner-Nexus Banner](assets/starlearner-nexus-hermes-skill-banner.svg)
 
 ## 🚀 Overview
 

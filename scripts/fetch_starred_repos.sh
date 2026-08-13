@@ -19,7 +19,7 @@ if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
     gh api --paginate user/starred > "$OUTPUT_FILE"
 elif [ -n "$GITHUB_TOKEN" ]; then
     echo "Using GitHub API with personal access token..."
-    curl -s -H "Authorization: token $GITHUB_TOKEN" \
+    curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
         -H "Accept: application/vnd.github.v3+json" \
         "https://api.github.com/user/starred?per_page=100" | \
         jq -s '.' > "$OUTPUT_FILE"

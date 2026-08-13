@@ -232,7 +232,7 @@ def generate_features(repo):
     
     return features
 
-def generate_usage_details(repo):
+def generate_usage_details(repo, github_username="BigBossRabbit"):
     """Generate detailed usage instructions for the skill"""
     skill_name = generate_skill_name(repo)
     repo_name = repo.get('name', 'unknown')
@@ -242,8 +242,8 @@ def generate_usage_details(repo):
 
 ```bash
 # Install from your StarLearner-Nexus tap
-hermes skills tap add {{ github_username }}/starlearner-nexus-hermes-skill
-hermes skills install {skill_name} --tap {{ github_username }}/starlearner-nexus-hermes-skill
+hermes skills tap add {github_username}/starlearner-nexus-hermes-skill
+hermes skills install {skill_name} --tap {github_username}/starlearner-nexus-hermes-skill
 
 # Run the skill
 hermes skills run {skill_name}
@@ -424,7 +424,7 @@ def generate_skill(repo, category_key, output_dir):
     tags = generate_skill_tags(repo, category_key)
     related_skills = generate_related_skills(repo, category_key)
     features = generate_features(repo)
-    usage_details = generate_usage_details(repo)
+    usage_details = generate_usage_details(repo, github_username="BigBossRabbit")
     installation_notes = generate_installation_notes(repo)
     dependencies_note = generate_dependencies_note(repo)
     repo_url = repo.get('html_url', repo.get('url', ''))
@@ -445,6 +445,7 @@ def generate_skill(repo, category_key, output_dir):
         installation_notes=installation_notes,
         dependencies_note=dependencies_note,
         repo_url=repo_url,
+        repo_html_url=repo_url,
         generation_date=generation_date,
         homepage=homepage,
         github_username="BigBossRabbit"  # This would ideally come from config

@@ -11,12 +11,16 @@ Each profile should have isolated credentials in:
 
 Check individual profile configs:
 ```bash
-# Check orchestrator profile
-hermes profile show orchestrator
-hermes profile show alan
-hermes profile show mira
-hermes profile show turing
-hermes profile show nova
+# Check each Legion profile
+hermes profile show thanos
+hermes profile show brainiac
+hermes profile show riddler
+hermes profile show loki
+hermes profile show doctor-doom
+hermes profile show lex-luthor
+hermes profile show kingpin
+hermes profile show watcher
+hermes profile show joker
 ```
 
 ## 2. Global Environment File
@@ -39,23 +43,23 @@ For project-specific overrides:
 
 ## Verification Commands
 
-To verify each profile uses its own key:
+To verify each profile uses its own dedicated key:
 ```bash
-# Check OpenRouter API keys for each profile
-hermes profile show orchestrator | grep api_key
-hermes profile show alan | grep api_key
-hermes profile show mira | grep api_key
-hermes profile show turing | grep api_key
-hermes profile show nova | grep api_key
+# Check the API key reference for each Legion profile
+hermes profile show thanos | grep api_key
+hermes profile show brainiac | grep api_key
+hermes profile show riddler | grep api_key
+hermes profile show loki | grep api_key
+hermes profile show doctor-doom | grep api_key
+hermes profile show lex-luthor | grep api_key
+hermes profile show kingpin | grep api_key
+hermes profile show watcher | grep api_key
+hermes profile show joker | grep api_key
 ```
 
 ## Expected Output Format
-Each profile should show a different environment variable reference:
-- orchestrator: `api_key: ${VICTOR_API_KEY}`
-- alan: `api_key: ${OKIN_API_KEY}`
-- mira: `api_key: ${GITHUB_API_KEY}`
-- turing: `api_key: ${TNNB_API_KEY}`
-- nova: `api_key: ${NOVA_API_KEY}`
+
+Each profile should reference a **different** environment variable (its own dedicated API key). No profile should share or inherit another profile's key, and no key value should be hardcoded — only the `${VAR}` reference should appear in config.
 
 ## Troubleshooting
 
