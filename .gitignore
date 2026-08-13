@@ -18,6 +18,9 @@ logs/
 # Generated skills (output artifacts)
 generated_skills/
 
+# Runtime state (sync timestamp)
+.last_sync_ts
+
 # Editor
 .vscode/
 .idea/
