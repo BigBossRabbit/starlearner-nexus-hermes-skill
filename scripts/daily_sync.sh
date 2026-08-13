@@ -5,9 +5,18 @@
 set -euo pipefail
 
 # Configuration
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 LOG_FILE="$SCRIPT_DIR/../logs/starlearner-nexus-$(date +%Y%m%d).log"
 DATA_DIR="$SCRIPT_DIR/../data"
+
+# Parse --source flag: default = github-stars; option = bookmarks
+SOURCE="github-stars"
+for arg in "$@"; do
+    case "$arg" in
+        --source=*) SOURCE="${arg#*=}" ;;
+        --source) SOURCE="bookmarks" ;;   # bare flag implies bookmarks
+    esac
+done
 
 # Ensure directories exist
 mkdir -p "$(dirname "$LOG_FILE")"
@@ -18,11 +27,18 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
 }
 
-log "Starting StarLearner-Nexus daily sync"
+log "Starting StarLearner-Nexus daily sync (source: $SOURCE)"
 
-# Step 1: Fetch starred repositories
-log "Step 1: Fetching starred repositories from GitHub..."
-"$SCRIPT_DIR/fetch_starred_repos.sh" 2>&1 | tee -a "$LOG_FILE"
+# Step 1: Fetch source data
+if [ "$SOURCE" = "bookmarks" ]; then
+    log "Step 1: Fetching X bookmarks..."
+    "$SCRIPT_DIR/fetch_x_bookmarks.py" 2>&1 | tee -a "$LOG_FILE"
+    log "Step 1b: Mapping bookmarks to repo schema..."
+    "$SCRIPT_DIR/map_bookmarks_to_repos.py" 2>&1 | tee -a "$LOG_FILE"
+else
+    log "Step 1: Fetching starred repositories from GitHub..."
+    "$SCRIPT_DIR/fetch_starred_repos.sh" 2>&1 | tee -a "$LOG_FILE"
+fi
 
 # Step 2: Categorize repositories
 log "Step 2: Categorizing repositories by domain..."
