@@ -59,7 +59,8 @@ When StarLearner-Nexus processes your starred repositories, it creates:
 │   ├── fetch_starred_repos.sh    # Gets your starred repos from GitHub
 │   ├── categorize_repos.py       # Sorts repos by topic using keyword matching
 │   ├── generate_skills.py        # Creates .SKILL.md files from repo data
-│   └── daily_sync.sh             # Orchestrates the full pipeline
+│   ├── daily_sync.sh             # Orchestrates the full pipeline
+│   └── verify_installation.py    # Verifies the skill and its dependencies are correctly installed
 ├── references/               # Static data & templates
 │   ├── categories.json       # Topic → keyword mappings for categorization
 │   ├── profile-credential-verification.md # Guide for verifying credential isolation
@@ -98,6 +99,7 @@ Each generated skill contains:
 - [references/categories.json](references/categories.json) - Domain categorization rules
 - [references/skill_templates/default_skill.md.j2](references/skill_templates/default_skill.md.j2) - Skill generation template
 - [scripts/daily_sync.sh](scripts/daily_sync.sh) - Main execution script
+- [scripts/verify_installation.py](scripts/verify_installation.py) - Installation verification script
 
 ## 🔧 Usage
 

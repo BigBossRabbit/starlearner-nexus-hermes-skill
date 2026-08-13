@@ -13,7 +13,7 @@ Instead of manually creating Hermes skills for each interesting GitHub repositor
 
 ### Key Features
 - **Automatic Repository Ingestion**: Securely fetches all your starred GitHub repositories
-- **Smart Categorization**: Organizes repos into 10+ domains using keyword analysis
+- **Smart Categorization**: Organizes repos into 12 domains using keyword analysis
 - **Skill Generation**: Creates production-ready Hermes skills with metadata, docs, and examples
 - **Continuous Learning**: Built-in cron job support for daily updates
 - **Zero Manual Effort**: Once configured, your star collection becomes a living skill library

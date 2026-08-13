@@ -128,26 +128,62 @@ def load_starred_repos(input_file):
         return json.load(f)
 
 def categorize_repo(repo, categories):
-    """Categorize a single repository based on its attributes"""
-    # Extract searchable text from repository
-    searchable_text = f"{repo.get('name', '')} {repo.get('description', '') or ''} {repo.get('language', '') or ''}".lower()
-    
-    # Add topics if available
-    if 'topics' in repo and repo['topics']:
-        searchable_text += ' ' + ' '.join(repo['topics']).lower()
-    
-    # Score each category
-    category_scores = defaultdict(int)
-    
+    """Categorize a single repository based on its attributes.
+
+    Weighted keyword matching:
+      - topics      score 3
+      - description score 2
+      - name        score 1
+    Single-word keywords match on word boundaries (so 'ai' won't hit 'said').
+    Multi-word phrases (containing whitespace) use plain substring matching.
+    Ties are broken deterministically: the category whose keyword matched at
+    the earliest position in the searchable text wins; then by lowest
+    category_key (stable iteration order of `categories`).
+    """
+    import re
+
+    name = repo.get('name', '')
+    description = repo.get('description', '') or ''
+    topics = repo.get('topics', []) or []
+
+    # Field weighting: topics 3, description 2, name 1
+    fields = [(3, ' '.join(t.lower() for t in topics)),
+              (2, description.lower()),
+              (1, name.lower())]
+
+    # Score each category; track earliest match position for tie-breaking
+    category_scores = {}
+    earliest = {}
+
     for category_key, category_data in categories.items():
         keywords = category_data.get('keywords', [])
+        score = 0
+        best_pos = None
         for keyword in keywords:
-            if keyword.lower() in searchable_text:
-                category_scores[category_key] += 1
-    
-    # Return the category with highest score, or 'uncategorized' if no matches
+            kw = keyword.lower().strip()
+            if not kw:
+                continue
+            # Multi-word phrases match on plain substring; single words on boundaries
+            if ' ' in kw:
+                pattern = re.escape(kw)
+            else:
+                pattern = r'\b' + re.escape(kw) + r'\b'
+            for weight, text in fields:
+                match = re.search(pattern, text)
+                if match:
+                    score += weight
+                    if best_pos is None or match.start() < best_pos:
+                        best_pos = match.start()
+        if score > 0:
+            category_scores[category_key] = score
+            earliest[category_key] = best_pos
+
+    # Return the highest-scoring category, breaking ties deterministically
     if category_scores:
-        return max(category_scores.items(), key=lambda x: x[1])[0]
+        return max(
+            category_scores.items(),
+            key=lambda kv: (kv[1], -earliest[kv[0]] if earliest[kv[0]] is not None else 0)
+        )[0]
     else:
         return 'uncategorized'
 

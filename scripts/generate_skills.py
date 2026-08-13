@@ -87,7 +87,7 @@ def generate_skill_description(repo):
 
 def generate_skill_tags(repo, category_key):
     """Generate tags for the skill based on repository and category"""
-    tags = [category_key.replace('-', '_')]  # Category as tag
+    tags = [category_key]  # Category as tag (hyphens preserved, matching dir names)
     
     # Add language if available
     language = repo.get('language')
@@ -108,33 +108,12 @@ def generate_skill_tags(repo, category_key):
     return list(dict.fromkeys(tags))  # Preserves order while removing dups
 
 def generate_related_skills(repo, category_key):
-    """Generate related skills based on repository and category"""
-    related = []
-    
-    # Add other skills from same category as potentially related
-    # (In practice, this would be smarter based on actual dependencies)
-    related.append(f"{category_key}-general")
-    
-    # Add some standard related skills based on category
-    category_relations = {
-        'bitcoin-lightning': ['bitcoin-wallet', 'lightning-invoice', 'crypto-exchange'],
-        'ai-ml': ['model-training', 'data-preprocessing', 'nlp-processing'],
-        'privacy-security': ['encryption-tools', 'auth-management', 'secure-communication'],
-        'finance-trading': ['portfolio-tracker', 'trade-executor', 'market-analyzer'],
-        'development-tools': ['ci-cd-pipeline', 'testing-framework', 'package-manager'],
-        'social-media': ['content-scheduler', 'analytics-dashboard', 'engagement-tracker'],
-        'health-wellness': ['fitness-tracker', 'nutrition-guide', 'meditation-timer'],
-        'travel-exploration': ['trip-planner', 'expense-tracker', 'itinerary-builder'],
-        'voice-audio': ['speech-recognizer', 'text-to-speech', 'audio-processor'],
-        'video-streaming': ['video-downloader', 'live-streamer', 'video-converter'],
-        'education-learning': ['course-manager', 'quiz-generator', 'progress-tracker'],
-        'gaming-entertainment': ['game-engine', 'asset-manager', 'multiplayer-handler']
-    }
-    
-    if category_key in category_relations:
-        related.extend(category_relations[category_key][:2])  # Add up to 2 related
-    
-    return related
+    """Generate related skills based on repository and category.
+
+    Returns an empty list: no related skills exist for auto-generated skills,
+    and emitting invented names would create dead pointers in the manifest.
+    """
+    return []
 
 def generate_features(repo):
     """Generate feature list for the skill based on repository"""
@@ -431,12 +410,15 @@ def generate_skill(repo, category_key, output_dir):
     generation_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     homepage = repo.get('homepage', '')
     
+    # Resolve real author: repo owner if available, else fall back to repo name
+    author = repo.get('owner', {}).get('login', '') or repo.get('name', '')
+
     # Render the template
     rendered = template.render(
         skill_name=skill_name,
         skill_description=skill_description,
-        version="1.1.0",  # Updated version
-        author="GitHub Community (via StarLearner-Nexus)",
+        version="0.1.0",  # Auto-generated skills start at 0.1.0
+        author=author,
         license="MIT",
         tags=tags,
         related_skills=related_skills,
@@ -455,12 +437,14 @@ def generate_skill(repo, category_key, output_dir):
     skill_output_dir = output_dir / skill_name
     skill_output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Write the skill file
+    # Write the skill file (idempotent: skip if content is unchanged)
     skill_file = skill_output_dir / "SKILL.md"
+    if skill_file.exists() and skill_file.read_text() == rendered:
+        return skill_file, 'unchanged'
     with open(skill_file, 'w') as f:
         f.write(rendered)
     
-    return skill_file
+    return skill_file, 'generated'
 
 def generate_skills(input_file, output_base_dir):
     """Main function to generate skills from categorized repositories"""
@@ -475,6 +459,7 @@ def generate_skills(input_file, output_base_dir):
     stats = {
         'total_processed': 0,
         'skills_generated': 0,
+        'skills_unchanged': 0,
         'categories': {}
     }
     
@@ -498,10 +483,14 @@ def generate_skills(input_file, output_base_dir):
         category_skills = 0
         for repo in sorted_repos:
             try:
-                skill_file = generate_skill(repo, category_key, category_output_dir)
-                print(f"Generated skill: {skill_file}")
-                category_skills += 1
-                stats['skills_generated'] += 1
+                skill_file, status = generate_skill(repo, category_key, category_output_dir)
+                if status == 'unchanged':
+                    print(f"Unchanged skill: {skill_file}")
+                    stats['skills_unchanged'] += 1
+                else:
+                    print(f"Generated skill: {skill_file}")
+                    category_skills += 1
+                    stats['skills_generated'] += 1
             except Exception as e:
                 print(f"Error generating skill for {repo.get('name', 'unknown')}: {e}")
        
@@ -512,9 +501,10 @@ def generate_skills(input_file, output_base_dir):
         stats['total_processed'] += len(sorted_repos)
    
     # Print summary
-    print("\n=== Skill Generation Summary ===")
+    print(f"\n=== Skill Generation Summary ===")
     print(f"Total repositories processed: {stats['total_processed']}")
     print(f"Total skills generated: {stats['skills_generated']}")
+    print(f"Total skills unchanged (skipped): {stats['skills_unchanged']}")
     for category, cat_stats in stats['categories'].items():
         if cat_stats['skills_generated'] > 0:
             print(f"  {category}: {cat_stats['skills_generated']}/{cat_stats['repos_processed']} skills")
