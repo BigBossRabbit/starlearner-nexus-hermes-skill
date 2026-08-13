@@ -109,32 +109,9 @@ def generate_skill_tags(repo, category_key):
 
 def generate_related_skills(repo, category_key):
     """Generate related skills based on repository and category"""
-    related = []
-    
-    # Add other skills from same category as potentially related
-    # (In practice, this would be smarter based on actual dependencies)
-    related.append(f"{category_key}-general")
-    
-    # Add some standard related skills based on category
-    category_relations = {
-        'bitcoin-lightning': ['bitcoin-wallet', 'lightning-invoice', 'crypto-exchange'],
-        'ai-ml': ['model-training', 'data-preprocessing', 'nlp-processing'],
-        'privacy-security': ['encryption-tools', 'auth-management', 'secure-communication'],
-        'finance-trading': ['portfolio-tracker', 'trade-executor', 'market-analyzer'],
-        'development-tools': ['ci-cd-pipeline', 'testing-framework', 'package-manager'],
-        'social-media': ['content-scheduler', 'analytics-dashboard', 'engagement-tracker'],
-        'health-wellness': ['fitness-tracker', 'nutrition-guide', 'meditation-timer'],
-        'travel-exploration': ['trip-planner', 'expense-tracker', 'itinerary-builder'],
-        'voice-audio': ['speech-recognizer', 'text-to-speech', 'audio-processor'],
-        'video-streaming': ['video-downloader', 'live-streamer', 'video-converter'],
-        'education-learning': ['course-manager', 'quiz-generator', 'progress-tracker'],
-        'gaming-entertainment': ['game-engine', 'asset-manager', 'multiplayer-handler']
-    }
-    
-    if category_key in category_relations:
-        related.extend(category_relations[category_key][:2])  # Add up to 2 related
-    
-    return related
+    # No fictional related skills — return empty list to avoid emitting
+    # related_skills that reference skills which don't exist.
+    return []
 
 def generate_features(repo):
     """Generate feature list for the skill based on repository"""
@@ -242,8 +219,8 @@ def generate_usage_details(repo):
 
 ```bash
 # Install from your StarLearner-Nexus tap
-hermes skills tap add {{ github_username }}/starlearner-nexus-hermes-skill
-hermes skills install {skill_name} --tap {{ github_username }}/starlearner-nexus-hermes-skill
+hermes skills tap add BigBossRabbit/starlearner-nexus-hermes-skill
+hermes skills install {skill_name} --tap BigBossRabbit/starlearner-nexus-hermes-skill
 
 # Run the skill
 hermes skills run {skill_name}
@@ -428,6 +405,7 @@ def generate_skill(repo, category_key, output_dir):
     installation_notes = generate_installation_notes(repo)
     dependencies_note = generate_dependencies_note(repo)
     repo_url = repo.get('html_url', repo.get('url', ''))
+    author_value = repo.get('owner', {}).get('login') or 'GitHub'
     generation_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     homepage = repo.get('homepage', '')
     
@@ -435,8 +413,8 @@ def generate_skill(repo, category_key, output_dir):
     rendered = template.render(
         skill_name=skill_name,
         skill_description=skill_description,
-        version="1.1.0",  # Updated version
-        author="GitHub Community (via StarLearner-Nexus)",
+        version="0.1.0",  # Fresh start
+        author=author_value,
         license="MIT",
         tags=tags,
         related_skills=related_skills,
@@ -445,6 +423,7 @@ def generate_skill(repo, category_key, output_dir):
         installation_notes=installation_notes,
         dependencies_note=dependencies_note,
         repo_url=repo_url,
+        repo_html_url=repo_url,
         generation_date=generation_date,
         homepage=homepage,
         github_username="BigBossRabbit"  # This would ideally come from config

@@ -1,0 +1,8 @@
+data/*.json
+logs/
+generated_skills/
+*.pyc
+__pycache__/
+venv/
+.venv/
+.DS_Store

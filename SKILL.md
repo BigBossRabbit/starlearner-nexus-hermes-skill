@@ -1,8 +1,9 @@
 ---
 name: starlearner-nexus
-description: "Transform GitHub Stars into AI Skills - Automatically ingests your GitHub starred repositories, categorizes them by domain, and transforms them into reusable AI skills"
+description: "Turn GitHub starred repos into reusable Hermes skills."
 version: 1.1.0
-author: Hermes Agent (based on BigBossRabbit/StarLearner-Nexus concept)
+author: BigBossRabbit, Hermes Agent
+platforms: [linux, macos, windows]
 license: MIT
 tags: [skill-generation, github, automation, learning, marketplace]
 related_skills: [github-repo-management, writing-plans, requesting-code-review]

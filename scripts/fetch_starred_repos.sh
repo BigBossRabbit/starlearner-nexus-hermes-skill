@@ -19,10 +19,21 @@ if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
     gh api --paginate user/starred > "$OUTPUT_FILE"
 elif [ -n "$GITHUB_TOKEN" ]; then
     echo "Using GitHub API with personal access token..."
-    curl -s -H "Authorization: token $GITHUB_TOKEN" \
-        -H "Accept: application/vnd.github.v3+json" \
-        "https://api.github.com/user/starred?per_page=100" | \
-        jq -s '.' > "$OUTPUT_FILE"
+    PAGE=1
+    : > "$OUTPUT_FILE"
+    while : ; do
+        BODY=$(curl -s -f -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/user/starred?page=${PAGE}&per_page=100" || true)
+        if [ -z "$BODY" ] || [ "$(echo "$BODY" | jq 'type')" != '"array"' ]; then
+            break
+        fi
+        echo "$BODY" | jq -c '.[]' >> "$OUTPUT_FILE"
+        COUNT=$(echo "$BODY" | jq length)
+        if [ "$COUNT" -lt 100 ]; then break; fi
+        PAGE=$((PAGE+1))
+    done
+    cat "$OUTPUT_FILE" | jq -s '.' > "$OUTPUT_FILE.tmp" && mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
 else
     echo "Error: Neither GitHub CLI (gh) nor GITHUB_TOKEN environment variable available."
     echo "Please either:"
