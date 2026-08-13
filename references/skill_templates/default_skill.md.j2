@@ -38,18 +38,11 @@ hermes skills run {{ skill_name }}
 
 ## 📂 Source
 
-This skill was automatically generated from the GitHub repository: {{ repo_url }}
-Generated on: {{ generation_date }}
-Original repository: {{ repo_html_url }}
-{% if homepage %}Project homepage: {{ homepage }}{% endif %}
+This document was generated from: {{ repo_url }}
 
 ## 📚 Documentation
 
-For detailed documentation, refer to the original repository:
-- Documentation: {{ repo_html_url }}#readme
-- Examples: {{ repo_html_url }}#examples (if available)
-- Issues: {{ repo_html_url }}/issues
-- Changelog: {{ repo_html_url }}/blob/main/CHANGELOG.md (if available)
+For detailed documentation, refer to: {{ repo_url }}/#readme
 
 ## 🛠️ Dependencies
 
@@ -57,12 +50,8 @@ For detailed documentation, refer to the original repository:
 
 ## 🔄 Updates
 
-This skill will be automatically updated when you run StarLearner-Nexus to refresh your GitHub stars.
-To manually update: `hermes skills update {{ skill_name }} --tap {{ github_username }}/starlearner-nexus-hermes-skill`
+This skill can be updated by re-running the StarLearner-Nexus generator.
 
 ## 💬 Support
 
-For questions or issues with this skill:
-- Check the original repository issues: {{ repo_html_url }}/issues
-- Visit the Hermes community for general skill usage help
-- Consider contributing improvements back to the original project
+For questions or assistance, please open an issue on the StarLearner-Nexus repository.

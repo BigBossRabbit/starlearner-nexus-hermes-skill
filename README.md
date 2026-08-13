@@ -68,17 +68,6 @@ When StarLearner-Nexus processes your starred repositories, it creates:
 │   ├── starred_repos.json      # Raw GitHub API response
 │   └── categorized_repos.json  # Domain-classified repositories
 ├── generated_skills/         # Currently active generated skills (by category)
-│   ├── bitcoin-lightning/
-│   │   ├── lnd/
-│   │   │   └── SKILL.md
-│   │   └── ... (more skills)
-│   ├── ai-ml/
-│   │   ├── langchain/
-│   │   │   └── SKILL.md
-│   │   └── ... (more skills)
-│   └── ... (more categories)
-├── generated_skills_final/   # Latest build of generated skills
-├── generated_skills_test/    # Test build (for verification)
 ├── logs/                     # Execution logs
 └── requirements.txt          # Python dependencies (PyYAML, Jinja2, requests)
 ```
@@ -109,7 +98,6 @@ Each generated skill contains:
 - [references/categories.json](references/categories.json) - Domain categorization rules
 - [references/skill_templates/default_skill.md.j2](references/skill_templates/default_skill.md.j2) - Skill generation template
 - [scripts/daily_sync.sh](scripts/daily_sync.sh) - Main execution script
-- [scripts/verify_installation.py](scripts/verify_installation.py) - Installation verification script
 
 ## 🔧 Usage
 

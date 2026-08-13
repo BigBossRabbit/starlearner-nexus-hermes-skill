@@ -4,6 +4,7 @@
 # Python
 __pycache__/
 *.py[cod]
+*.pyc
 *.egg-info/
 .venv/
 venv/
@@ -12,6 +13,7 @@ venv/
 data/*.json
 logs/*.log
 !logs/.gitkeep
+logs/
 
 # Generated skills (output artifacts)
 generated_skills/
