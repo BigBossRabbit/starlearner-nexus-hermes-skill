@@ -87,7 +87,7 @@ def generate_skill_description(repo):
 
 def generate_skill_tags(repo, category_key):
     """Generate tags for the skill based on repository and category"""
-    tags = [category_key.replace('-', '_')]  # Category as tag
+    tags = [category_key]  # Category as tag (hyphenated, consistent with dirs)
     
     # Add language if available
     language = repo.get('language')

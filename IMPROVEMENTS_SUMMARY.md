@@ -53,7 +53,7 @@ As demonstrated by the sample skill (openclaw):
 - Generated skills contain only public repository information
 
 ### Current Status:
-- Generated skills are in `/Users/fromthejump/.hermes/skills/starlearner-nexus/generated_skills/`
+- Generated skills are in `~/.hermes/skills/starlearner-nexus/generated_skills/`
 - Local git repository has been initialized and committed
 - Remote repository ready at `https://github.com/BigBossRabbit/starlearner-nexus-hermes-skill`
 - Skills follow improved template with better documentation and usability
