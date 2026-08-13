@@ -21,3 +21,4 @@ generated_skills/
 # Editor
 .vscode/
 .idea/
+.github/workflows/ci.yml
