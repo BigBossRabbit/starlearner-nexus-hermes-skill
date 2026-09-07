@@ -22,8 +22,8 @@ elif [ -n "$GITHUB_TOKEN" ]; then
     PAGE=1
     : > "$OUTPUT_FILE"
     while : ; do
-        BODY=$(curl -s -f -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-            -H "Accept: application/vnd.github.v3+json" \
+        BODY=$(curl -s -f -H "Authorization: token ${GITHUB_TOKEN}" \
+                    -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/user/starred?page=${PAGE}&per_page=100" || true)
         if [ -z "$BODY" ] || [ "$(echo "$BODY" | jq 'type')" != '"array"' ]; then
             break

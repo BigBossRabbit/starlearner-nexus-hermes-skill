@@ -6,6 +6,9 @@
 
 set -euo pipefail
 
+# Cron-PATH guard: ensure Homebrew/user python paths are visible under cron.
+export PATH="/usr/local/bin:/opt/homebrew/bin:$HOME/Library/Python/3.11/bin:$PATH"
+
 REPO="/Users/fromthejump/starlearner-nexus-hermes-skill"
 STATE="$REPO/.last_sync_ts"
 LOG="$REPO/logs/starlearner-$(date +%Y%m%d).log"

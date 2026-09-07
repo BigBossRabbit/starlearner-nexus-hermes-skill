@@ -215,6 +215,7 @@ def generate_usage_details(repo, github_username="BigBossRabbit"):
     """Generate detailed usage instructions for the skill"""
     skill_name = generate_skill_name(repo)
     repo_name = repo.get('name', 'unknown')
+    github_username_param = repo.get('owner', {}).get('login', 'BigBossRabbit')
     language = repo.get('language', '')
     
     usage = f"""# Basic Installation and Usage
@@ -403,7 +404,10 @@ def generate_skill(repo, category_key, output_dir):
     tags = generate_skill_tags(repo, category_key)
     related_skills = generate_related_skills(repo, category_key)
     features = generate_features(repo)
-    usage_details = generate_usage_details(repo, github_username="BigBossRabbit")
+    # Extract real GitHub owner from repo metadata for usage instructions
+    repo_owner = repo.get('owner', {}).get('login', 'BigBossRabbit')
+
+    usage_details = generate_usage_details(repo, github_username=repo_owner)
     installation_notes = generate_installation_notes(repo)
     dependencies_note = generate_dependencies_note(repo)
     repo_url = repo.get('html_url', repo.get('url', ''))
@@ -430,7 +434,7 @@ def generate_skill(repo, category_key, output_dir):
         repo_html_url=repo_url,
         generation_date=generation_date,
         homepage=homepage,
-        github_username="BigBossRabbit"  # This would ideally come from config
+        github_username=repo.get('owner', {}).get('login', "BigBossRabbit"),
     )
     
     # Create output directory
