@@ -14,9 +14,35 @@ StarLearner-Nexus is a Hermes Agent skill that transforms your GitHub starred re
 - **Intelligent Categorization**: Sorts repositories by topic using keyword matching
 - **Skill Generation**: Creates complete Hermes skills (.SKILL.md) from repo data
 - **Automatic Updates**: Daily sync keeps your skill library current
+- **Incremental (only-new) processing**: A persistent seen-ledger means each run only counts and assesses repositories you have not already taken into account — no re-processing of the same repos every run
+- **Two-track assessment**: Every new repo is scored for (a) integrating into your own makeup and (b) business-opportunity value, surfaced in `data/opportunities.json`
 - **Multiple Categories**: Supports AI/ML, development tools, privacy, finance, and more
 - **Easy Installation**: Simple tap, install, and configure workflow
 - **Cron-Ready**: Designed for automatic daily execution via cron job
+
+## 🔁 Incremental Processing (seen-ledger)
+
+StarLearner-Nexus is **incremental by design**. It keeps a persistent ledger at
+`data/ledger.json` (gitignored) that records every repository already taken into
+account. On each run:
+
+1. **Fetch** the full current set of starred repos (unchanged).
+2. **Diff** against the ledger → only **NEW** repos advance.
+3. Only new repos are **categorized**, **assessed** and turned into skills.
+4. New repos are recorded into the ledger **only after a successful run**, so a
+   mid-run failure never marks items as seen.
+
+The result: a repo you have already processed is never counted again. Each run
+reports **how many are new**, what was integrated, and what is a business
+opportunity — not the total.
+
+```bash
+# See how many repos have been seen so far
+python3 scripts/ledger.py report data/ledger.json
+```
+
+The ledger keys on GitHub repo `id` + `full_name` (stable identities), so
+re-stars and renames are handled correctly.
 
 ## 📋 Requirements
 
