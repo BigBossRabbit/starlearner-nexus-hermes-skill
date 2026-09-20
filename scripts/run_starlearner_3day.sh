@@ -6,6 +6,9 @@
 
 set -euo pipefail
 
+# Cron-PATH guard: ensure Homebrew/user python paths are visible under cron.
+export PATH="/usr/local/bin:/opt/homebrew/bin:$HOME/Library/Python/3.11/bin:$PATH"
+
 REPO="/Users/fromthejump/starlearner-nexus-hermes-skill"
 STATE="$REPO/.last_sync_ts"
 LOG="$REPO/logs/starlearner-$(date +%Y%m%d).log"
@@ -34,7 +37,8 @@ echo "$NOW" > "$STATE"
 echo "🚀 StarLearner-Nexus sync started $(date '+%Y-%m-%d %H:%M')"
 bash "$REPO/scripts/daily_sync.sh" > "$LOG" 2>&1
 
-# Compact summary (single line for Telegram)
-REPOS=$(grep -oE "Fetched: [0-9]+" "$LOG" | tail -1 | grep -oE "[0-9]+" || echo "?")
+# Compact summary (single line for Telegram) — reports NEW, not total.
+NEW=$(grep -oE "New this run: [0-9]+" "$LOG" | tail -1 | grep -oE "[0-9]+" || echo "0")
+OPP=$(grep -oE "Business opportunities: [0-9]+" "$LOG" | tail -1 | grep -oE "[0-9]+" || echo "0")
 SKILLS=$(find "$REPO/generated_skills" -name SKILL.md -type f 2>/dev/null | wc -l | tr -d ' ')
-echo "✅ StarLearner sync done — ${REPOS} repos · ${SKILLS} skills · log $LOG"
+echo "✅ StarLearner sync done — ${NEW} new · ${OPP} opportunities · ${SKILLS} skills · log $LOG"
