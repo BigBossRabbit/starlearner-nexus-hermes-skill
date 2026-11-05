@@ -22,7 +22,8 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 DATA_DIR = SCRIPT_DIR.parent / "data"
 
-# Client-facing domains we can actually sell / build for (OKIN Ent).
+# Client-facing domains we can actually sell / build for (the keys
+# below; see also the two-track assessment in the README).
 # Each maps to a keyword set; a hit flags a business opportunity.
 CLIENT_DOMAINS = {
     "bitcoin-lightning": ["bitcoin", "btc", "lightning", "lnd", "satoshi",

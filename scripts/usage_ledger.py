@@ -21,12 +21,18 @@ import time
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEDGER_OUT = os.path.join(REPO, "data", "usage_ledger.json")
-LIVE_SKILLS = "/Users/fromthejump/.hermes/skills"
+# The live skills tree + the profile state DBs (portable): the hermes home
+# ($HERMES_HOME, default ~/.hermes), overridable with --live-skills /
+# --state-dbs. STANDALONE-ONLY tool (plugin v1 never reads these).
+HERMES_HOME = os.environ.get("HERMES_HOME") or os.path.expanduser("~/.hermes")
+LIVE_SKILLS = os.path.join(HERMES_HOME, "skills")
 ATTIC = os.path.join(LIVE_SKILLS, ".attic")
-STATE_DBS = (
-    glob.glob("/Users/fromthejump/.hermes/profiles/*/state.db")
-    + ["/Users/fromthejump/.hermes/state.db"]
-)
+
+
+def _state_dbs():
+    return (glob.glob(os.path.join(HERMES_HOME, "profiles", "*",
+                                    "state.db"))
+            + [os.path.join(HERMES_HOME, "state.db")])
 
 
 def candidate_skills():
@@ -100,7 +106,7 @@ def main():
     now = time.time()
     report = {"ts": time.strftime("%Y-%m-%d %H:%M:%S"), "profiles_scanned": [], "skills": []}
     conns = []
-    for db in STATE_DBS:
+    for db in _state_dbs():
         opened = scan_db(db)
         if len(opened) > 1:
             conns.append((db,) + opened)

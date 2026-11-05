@@ -23,7 +23,10 @@ import time
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE_DEFAULT = os.path.join(REPO, "generated_skills")
-LIVE_SKILLS = "/Users/fromthejump/.hermes/skills"
+# The live skills tree (portable): $HERMES_HOME/skills by default (the
+# hermes home), overridable with --live-skills.
+HERMES_HOME = os.environ.get("HERMES_HOME") or os.path.expanduser("~/.hermes")
+LIVE_SKILLS = os.path.join(HERMES_HOME, "skills")
 LEDGER = os.path.join(REPO, "data", "install_ledger.json")
 MAX_FILE = 2 * 1024 * 1024
 MAX_TOTAL = 10 * 1024 * 1024
@@ -88,6 +91,10 @@ def main():
     source = SOURCE_DEFAULT
     if "--source" in sys.argv:
         source = sys.argv[sys.argv.index("--source") + 1]
+    global LIVE_SKILLS, ATTIC
+    if "--live-skills" in sys.argv:
+        LIVE_SKILLS = sys.argv[sys.argv.index("--live-skills") + 1]
+        ATTIC = os.path.join(LIVE_SKILLS, ".attic")
     installed, skipped, rejected = [], [], []
     seen_names = set()
     for root, dirs, files in os.walk(source):
