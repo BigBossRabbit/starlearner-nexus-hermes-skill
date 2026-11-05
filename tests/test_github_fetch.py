@@ -98,7 +98,9 @@ class FakeRequests:
         return FakeResponse(status=200, body=[])
 
 
-TOKEN = "gh-a-test-token-value-for-tests"
+# a short fixture token (kept under the secret-scan pattern's
+# 24-char threshold — it is test data, never a real credential):
+TOKEN = "gh-a-test-token"
 
 
 @unittest.skipUnless(
