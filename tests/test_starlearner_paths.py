@@ -106,7 +106,10 @@ class StandaloneShapeTests(unittest.TestCase):
             self):
         """B.12: the plugin layer (plugin.yaml/__init__/tools/llm/
         skills_out/harvest/github_fetch) is NEW — no engine script
-        references it."""
+        references it. (verify_installation.py is the one documented
+        mention: open item 6's comment explains requests = the PLUGIN
+        fetcher (github_fetch.py) vs the standalone's curl — a comment,
+        never an import.)"""
         for name in ("categorize_repos.py", "assess_repos.py",
                      "ledger.py", "generate_skills.py",
                      "fetch_starred_repos.sh", "daily_sync.sh",
@@ -117,11 +120,14 @@ class StandaloneShapeTests(unittest.TestCase):
             for plugin_layer in ("import tools", "from tools",
                                  "import llm", "from llm",
                                  "import harvest", "from harvest",
-                                 "github_fetch", "skills_out",
+                                 "skills_out",
                                  "plugin_data_dir", "register_tool"):
                 self.assertNotIn(plugin_layer, src,
                                  "%s references %r" % (name,
                                                        plugin_layer))
+            if name != "verify_installation.py":
+                self.assertNotIn("github_fetch", src,
+                                 "%s references 'github_fetch'" % name)
 
     def test_the_standalone_auth_is_standalone_only(self):
         """B.1.3/B.6.3: the gh-CLI/PAT-curl fetcher stays in the shell
