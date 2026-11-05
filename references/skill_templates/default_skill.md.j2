@@ -1,0 +1,57 @@
+---
+name: {{ skill_name }}
+description: "{{ skill_description }}"
+version: {{ version }}
+author: "{{ author }}"
+license: "{{ license }}"
+tags: {{ tags | tojson }}
+related_skills: {{ related_skills | tojson }}
+---
+
+# {{ skill_name }}
+
+{{ skill_description }}
+
+## 🚀 Quick Start
+
+```bash
+# Install the skill (if not already installed)
+hermes skills install {{ skill_name }} --tap {{ github_username }}/starlearner-nexus-hermes-skill
+
+# Run the skill
+hermes skills run {{ skill_name }}
+```
+
+## 🌟 Features
+
+{% for feature in features %}
+- {{ feature }}
+{% endfor %}
+
+## 📖 Usage
+
+{{ usage_details }}
+
+## 🔧 Installation
+
+{{ installation_notes }}
+
+## 📂 Source
+
+This document was generated from: {{ repo_url }}
+
+## 📚 Documentation
+
+For detailed documentation, refer to: {{ repo_url }}/#readme
+
+## 🛠️ Dependencies
+
+{{ dependencies_note }}
+
+## 🔄 Updates
+
+This skill can be updated by re-running the StarLearner-Nexus generator.
+
+## 💬 Support
+
+For questions or assistance, please open an issue on the StarLearner-Nexus repository.

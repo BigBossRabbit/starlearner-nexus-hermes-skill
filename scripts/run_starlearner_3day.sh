@@ -1,0 +1,44 @@
+#!/bin/bash
+# run_starlearner_3day.sh
+# Runs the StarLearner-Nexus skill every 3rd day.
+# Cron fires this daily; the state file gates execution to once per 3 days.
+# stdout carries ONLY a compact summary line (cron delivers it to Telegram).
+
+set -euo pipefail
+
+# Cron-PATH guard: ensure Homebrew/user python paths are visible under cron.
+export PATH="/usr/local/bin:/opt/homebrew/bin:$HOME/Library/Python/3.11/bin:$PATH"
+
+REPO="/Users/fromthejump/starlearner-nexus-hermes-skill"
+STATE="$REPO/.last_sync_ts"
+LOG="$REPO/logs/starlearner-$(date +%Y%m%d).log"
+NOW=$(date +%s)
+INTERVAL_SEC=$((3 * 24 * 60 * 60))
+
+# Read last run timestamp (0 if never)
+LAST=0
+[ -f "$STATE" ] && LAST=$(cat "$STATE" 2>/dev/null || echo 0)
+
+# Gate: run only if 3+ days elapsed
+if [ -n "$LAST" ] && [ "$LAST" -gt 0 ]; then
+  ELAPSED=$((NOW - LAST))
+  if [ "$ELAPSED" -lt "$INTERVAL_SEC" ]; then
+    NEXT=$((LAST + INTERVAL_SEC - NOW))
+    DAYS=$((NEXT / 86400)); HRS=$(((NEXT % 86400) / 3600))
+    : # gated ticks intentionally silent
+    exit 0
+  fi
+fi
+
+# Record timestamp BEFORE running so a mid-run failure doesn't cause a tight retry loop
+echo "$NOW" > "$STATE"
+
+# Run the full pipeline
+echo "🚀 StarLearner-Nexus sync started $(date '+%Y-%m-%d %H:%M')"
+bash "$REPO/scripts/daily_sync.sh" > "$LOG" 2>&1
+
+# Compact summary (single line for Telegram) — reports NEW, not total.
+NEW=$(grep -oE "New this run: [0-9]+" "$LOG" | tail -1 | grep -oE "[0-9]+" || echo "0")
+OPP=$(grep -oE "Business opportunities: [0-9]+" "$LOG" | tail -1 | grep -oE "[0-9]+" || echo "0")
+SKILLS=$(find "$REPO/generated_skills" -name SKILL.md -type f 2>/dev/null | wc -l | tr -d ' ')
+echo "✅ StarLearner sync done — ${NEW} new · ${OPP} opportunities · ${SKILLS} skills · log $LOG"

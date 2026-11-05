@@ -1,0 +1,29 @@
+<svg width="1200" height="400" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bgGradient)" />
+  <!-- Radiant glow circle -->
+  <circle cx="600" cy="200" r="133" fill="#ff6b6b" opacity="0.2" filter="url(#glow)" />
+  <!-- Emblem: a simple gear (approximated with a circle and some rectangles) -->
+  <g transform="translate(600,200)">
+    <circle cx="0" cy="0" r="30" fill="#ff6b6b" opacity="0.8" />
+    <!-- Four simple teeth -->
+    <rect x="-40" y="-5" width="20" height="10" fill="#ff6b6b" opacity="0.8" transform="rotate(0)" />
+    <rect x="-40" y="-5" width="20" height="10" fill="#ff6b6b" opacity="0.8" transform="rotate(90)" />
+    <rect x="-40" y="-5" width="20" height="10" fill="#ff6b6b" opacity="0.8" transform="rotate(45)" />
+    <rect x="-40" y="-5" width="20" height="10" fill="#ff6b6b" opacity="0.8" transform="rotate(135)" />
+  </g>
+  <!-- Text -->
+  <text x="600" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" fill="#ffffff" opacity="0.9">starlearner-nexus-hermes-skill</text>
+</svg>
