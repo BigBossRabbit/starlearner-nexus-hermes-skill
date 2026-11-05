@@ -29,3 +29,69 @@ jobs:
 
       - name: Verify installation
         run: python3 scripts/verify_installation.py
+
+  # The plugin layer's hermes-free battery (paths/seam + the register()
+  # recording-stub contract + the llm fallback law + the forbidden-strings
+  # gate + the github_fetch auth law (the transport is faked)).
+  # test_sync_driver / test_skills_out / test_settings' schema classes
+  # need a hermes checkout (HAVE_HERMES) — they run in the local
+  # admission gate, not here.
+  plugin-layer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run the paths-seam unit tests
+        run: python3 tests/test_starlearner_paths.py
+
+      - name: Run the register-contract unit tests
+        run: python3 tests/test_plugin_surface.py
+
+      - name: Run the llm-fallback unit tests
+        run: python3 tests/test_llm_fallback.py
+
+      - name: Run the github-fetch auth unit tests
+        run: python3 tests/test_github_fetch.py
+
+      - name: Run the settings unit tests
+        run: python3 tests/test_settings.py
+
+      - name: Run the forbidden-strings gate
+        run: python3 tests/test_grep_gate.py
+
+  # The plugin admission gates (the catalog CI runs the same checks; this
+  # job keeps the tree honest between catalog runs): the 16 `hermes
+  # plugins validate` checks + the doctor's isolated load.
+  # NOTE (build mission, local-git-only): no GitHub runner was available
+  # in the build — the hermes-agent install line is the documented pip
+  # name and the validate/doctor invocations are the exact commands the
+  # local admission gate ran (exit 0). If the install name ever differs,
+  # fix it in the same PR that first runs this job.
+  plugins-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install hermes-agent
+        run: pip install hermes-agent
+
+      - name: Validate the plugin (the 16 admission checks)
+        run: hermes plugins validate .
+
+      - name: Doctor (the isolated load)
+        run: hermes plugins doctor .

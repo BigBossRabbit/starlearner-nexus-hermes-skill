@@ -1,7 +1,7 @@
 ---
 name: starlearner-nexus
 description: "Turn GitHub starred repos into reusable Hermes skills."
-version: 1.1.0
+version: 1.2.0
 author: BigBossRabbit, Hermes Agent
 platforms: [linux, macos, windows]
 license: MIT
@@ -61,9 +61,17 @@ hermes delegate_task \
   --context "Output directory: /path/to/my/skills/collection"
 ```
 
-### Configuration
+### Configuration (STANDALONE-ONLY)
 
-Create a `.env` file in your Hermes root directory (`~/.hermes/.env`) with your GitHub token:
+This SKILL.md is the **standalone** skill definition. The **plugin**
+(see README Part 1) uses a different, host-owned auth route:
+`STARLEARNER_GITHUB_TOKEN` — a `requires_env` secret, prompted (hidden)
+at `hermes plugins install`, saved by the host to the active profile's
+`.env`, and read back only through the host's secret scope. Never a
+bare environment read.
+
+The STANDALONE's route (this file): create a `.env` file in your
+Hermes root directory (`~/.hermes/.env`) with your GitHub token:
 
 ```bash
 GITHUB_TOKEN=your_personal_access_token_here
@@ -73,13 +81,19 @@ You can also set it via:
 ```bash
 hermes config set env.GITHUB_TOKEN your_token_here
 ```
+(the standalone's `fetch_starred_repos.sh` reads `GITHUB_TOKEN`; the
+plugin's `github_fetch.py` reads only
+`agent.secret_scope.get_secret("STARLEARNER_GITHUB_TOKEN")`)
 
-### Requirements
+### Requirements (standalone)
 
-- GitHub CLI (`gh`) - Recommended for authentication
-- OR GitHub Personal Access Token (set as `GITHUB_TOKEN` in environment)
+- GitHub CLI (`gh`) - Recommended for authentication (STANDALONE-ONLY;
+  the plugin never shells out)
+- OR GitHub Personal Access Token (set as `GITHUB_TOKEN` in
+  environment — the standalone route)
 - Python 3.8+
-- Standard Unix tools (curl, jq for fallback operations)
+- Standard Unix tools (curl, jq for fallback operations — all
+  STANDALONE-ONLY)
 
 ## 🎯 Domains Covered
 

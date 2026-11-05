@@ -1,0 +1,54 @@
+[
+  {
+    "id": 9000000001,
+    "name": "sample-gpt",
+    "full_name": "sample-org/sample-gpt",
+    "description": "Introducing SampleGPT — a tiny local model runner with a clean cli and an http api for tool calling",
+    "language": "Python",
+    "topics": ["localai", "llm"],
+    "html_url": "https://github.com/sample-org/sample-gpt",
+    "stargazers_count": 42,
+    "forks_count": 3,
+    "license": "MIT",
+    "owner": {"login": "sample-org"}
+  },
+  {
+    "id": 9000000002,
+    "name": "channel-notes",
+    "full_name": "sample-bob/ln-ops",
+    "description": "Great thread on lightning network channel management with lnd — routing, fees and a nice dashboard for node operators",
+    "language": "Python",
+    "topics": ["bitcoin", "lightning"],
+    "html_url": "https://github.com/sample-bob/ln-ops",
+    "stargazers_count": 7,
+    "forks_count": 1,
+    "license": "MIT",
+    "owner": {"login": "sample-bob"}
+  },
+  {
+    "id": 9000000003,
+    "name": "mountain-photo",
+    "full_name": "sample-carol/mountain-photo",
+    "description": "Just a pleasant photo of a mountain. No tools here.",
+    "language": null,
+    "topics": [],
+    "html_url": "https://github.com/sample-carol/mountain-photo",
+    "stargazers_count": 3,
+    "forks_count": 0,
+    "license": null,
+    "owner": {"login": "sample-carol"}
+  },
+  {
+    "id": 9000000004,
+    "name": "sample-scraper",
+    "full_name": "sample-dan/sample-scraper",
+    "description": "Interesting scraper library for privacy research — crawling, parsing, scheduler included, works offline",
+    "language": "Python",
+    "topics": [],
+    "html_url": "https://github.com/sample-dan/sample-scraper",
+    "stargazers_count": 128,
+    "forks_count": 9,
+    "license": "MIT",
+    "owner": {"login": "sample-dan"}
+  }
+]

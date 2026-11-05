@@ -18,10 +18,26 @@ def load_categorized_repos(input_file):
     with open(input_file, 'r') as f:
         return json.load(f)
 
-def get_skill_template(category_key):
-    """Get the Jinja2 template for a specific category"""
+def get_skill_template(category_key, template_name=None):
+    """Get the Jinja2 template for a specific category.
+
+    Resolution order: *template_name* (plugin mode passes
+    ``plugin_skill.md.j2`` — the same skeleton with a
+    ``skill_view("starlearner-nexus:<name>")`` Quick Start instead of the standalone's
+    tap/install/run language), then a category-specific template, then the
+    default template, then the embedded fallback.
+    """
     template_dir = SKILL_DIR / "references" / "skill_templates"
-    
+
+    # Plugin-mode template (or any explicit override) first.
+    if template_name:
+        named = template_dir / template_name
+        if named.exists():
+            with open(named, 'r') as f:
+                return f.read()
+        print(f"generate_skills: template {template_name!r} not found in "
+              f"{template_dir}; falling back to the default template")
+
     # Try to load category-specific template first
     template_file = template_dir / f"{category_key}_skill.md.j2"
     if template_file.exists():
@@ -391,10 +407,10 @@ def generate_dependencies_note(repo):
     
     return deps
 
-def generate_skill(repo, category_key, output_dir):
+def generate_skill(repo, category_key, output_dir, template_name=None):
     """Generate a single Hermes skill for a repository"""
     # Load template
-    template_str = get_skill_template(category_key)
+    template_str = get_skill_template(category_key, template_name)
     template = jinja2.Template(template_str)
     
     # Prepare template variables
@@ -446,8 +462,15 @@ def generate_skill(repo, category_key, output_dir):
     
     return skill_file, 'generated'
 
-def generate_skills(input_file, output_base_dir):
-    """Main function to generate skills from categorized repositories"""
+def generate_skills(input_file, output_base_dir, generate_limit=5,
+                    template_name=None):
+    """Main function to generate skills from categorized repositories
+
+    ``generate_limit`` caps the skills generated per category per run (top by
+    stars; the pre-plugin engine hardcoded 5 — the plugin exposes it as its
+    ``generate_limit`` setting). ``template_name`` selects the plugin-mode
+    template (``plugin_skill.md.j2``); the default is the standalone template.
+    """
     # Load categorized data
     data = load_categorized_repos(input_file)
     
@@ -473,17 +496,20 @@ def generate_skills(input_file, output_base_dir):
         category_output_dir.mkdir(parents=True, exist_ok=True)
        
         # Limit to top repositories per category to avoid too many skills
-        # Sort by stars count (descending) and take top 5
+        # Sort by stars count (descending) and take the top `generate_limit`
+        # (5 by default; 0 = generate none — assess-only mode).
         sorted_repos = sorted(
             repos, 
             key=lambda r: r.get('stargazers_count', 0), 
             reverse=True
-        )[:5]
+        )[:generate_limit]
        
         category_skills = 0
         for repo in sorted_repos:
             try:
-                skill_file, status = generate_skill(repo, category_key, category_output_dir)
+                skill_file, status = generate_skill(repo, category_key,
+                                                    category_output_dir,
+                                                    template_name=template_name)
                 if status == 'unchanged':
                     print(f"Unchanged skill: {skill_file}")
                     stats['skills_unchanged'] += 1
@@ -505,18 +531,32 @@ def generate_skills(input_file, output_base_dir):
     print(f"Total repositories processed: {stats['total_processed']}")
     print(f"Total skills generated: {stats['skills_generated']}")
     print(f"Total skills unchanged (skipped): {stats['skills_unchanged']}")
+    print(f"Generate limit per category: {generate_limit}"
+          + (f" (template: {template_name})" if template_name else ""))
     for category, cat_stats in stats['categories'].items():
         if cat_stats['skills_generated'] > 0:
             print(f"  {category}: {cat_stats['skills_generated']}/{cat_stats['repos_processed']} skills")
-   
+
     return stats
 
+
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python generate_skills.py <input_json> <output_directory>")
+    if len(sys.argv) < 3:
+        print("Usage: python generate_skills.py <input_json> <output_directory> "
+              "[--generate-limit N] [--template NAME]")
         sys.exit(1)
-   
+
     input_file = sys.argv[1]
     output_dir = sys.argv[2]
-   
-    generate_skills(input_file, output_dir)
+
+    # Optional flags: --generate-limit N (default 5), --template NAME
+    # (plugin mode passes plugin_skill.md.j2).
+    generate_limit = 5
+    template_name = None
+    if "--generate-limit" in sys.argv:
+        generate_limit = int(sys.argv[sys.argv.index("--generate-limit") + 1])
+    if "--template" in sys.argv:
+        template_name = sys.argv[sys.argv.index("--template") + 1]
+
+    generate_skills(input_file, output_dir, generate_limit=generate_limit,
+                    template_name=template_name)

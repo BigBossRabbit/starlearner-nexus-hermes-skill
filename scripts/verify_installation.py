@@ -23,7 +23,11 @@ def check(label, ok, detail=""):
 def main():
     results = []
 
-    # 1. Required Python modules importable
+    # 1. Required Python modules importable.
+    # (open item 6 / B.2.3: PyYAML dropped — engine-unused; jinja2 = the
+    # engine path (generate_skills); requests = the PLUGIN fetcher
+    # (github_fetch.py) — the STANDALONE fetch (fetch_starred_repos.sh)
+    # is curl + jq and needs no Python packages.)
     try:
         import jinja2  # noqa: F401
         results.append(check("import jinja2", True))
@@ -31,20 +35,18 @@ def main():
         results.append(check("import jinja2", False, str(e)))
 
     try:
-        import yaml  # noqa: F401
-        results.append(check("import yaml", True))
-    except ImportError as e:
-        results.append(check("import yaml", False, str(e)))
-
-    try:
         import requests  # noqa: F401
-        results.append(check("import requests", True))
+        results.append(check(
+            "import requests (the plugin's github_fetch)", True))
     except ImportError as e:
-        results.append(check("import requests", False, str(e)))
+        results.append(check(
+            "import requests (the plugin's github_fetch)", False, str(e)))
 
     # 2. Scripts exist and are executable
     script_names = [
         "categorize_repos.py",
+        "assess_repos.py",
+        "ledger.py",
         "generate_skills.py",
         "fetch_starred_repos.sh",
         "daily_sync.sh",

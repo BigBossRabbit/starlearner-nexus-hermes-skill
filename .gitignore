@@ -24,3 +24,16 @@ generated_skills/
 # Editor
 .vscode/
 .idea/
+# R17: OS + editor junk never ships
+.DS_Store
+._*
+# R11-hygiene (B.11 risk 4): the local ledgers carry machine paths
+data/install_ledger.json
+data/usage_ledger.json
+# runtime data dirs wholesale (a clean clone of the pinned commit
+# contains none of it)
+data/
+logs/
+generated_skills/
+.attic/
+installed-skill-archive*

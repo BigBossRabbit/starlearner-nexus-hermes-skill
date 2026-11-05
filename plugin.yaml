@@ -1,0 +1,94 @@
+# plugin.yaml — StarLearner-Nexus (manifest v2)
+name: starlearner-nexus
+version: 1.2.0
+manifest_version: 2
+api_version: 1
+license: MIT
+author: BigBossRabbit
+homepage: https://github.com/BigBossRabbit/starlearner-nexus-hermes-skill
+tags: [skills, github, stars, harvest, automation]
+
+description: >-
+  Turn the repositories you star on GitHub into a living library of Hermes
+  skills. Incremental via a persistent seen-ledger (a repo is never
+  processed twice), categorized into 12 domains, two-track assessed (worth
+  integrating into your own makeup / business-opportunity value), with
+  optional LLM enrichment of the map / categorize / assess stages through
+  the host (ctx.llm) — zero keys in the plugin. Reads your stars with a
+  read-only GitHub token through the host's secret scope. Falls back to
+  the deterministic rules engine when no LLM is used.
+
+provides_tools:
+  - starlearner_sync
+  - starlearner_status
+  - starlearner_review
+
+provides_hooks: []
+
+# R11 — the textbook route: declared requires_env (rich format; install
+# prompts, hidden input, saved by the host), read ONLY via
+# agent.secret_scope.get_secret("STARLEARNER_GITHUB_TOKEN") (honours the
+# active profile; never a bare os.environ read).
+requires_env:
+  - name: STARLEARNER_GITHUB_TOKEN
+    description: >-
+      GitHub personal access token (read-only: a classic token with the
+      public_repo scope, or a fine-grained token with read-only access to
+      public repositories). Used only to list the repositories you have
+      starred. StarLearner-Nexus never sees or stores it.
+    url: "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token"
+    secret: true
+
+# R14: honest SemVer floor — the oldest hermes-agent this was validated
+# against (plugin_llm ctx.llm incl. register_auxiliary_task, manifest v2
+# + the rich requires_env format, config_schema settings forms,
+# register_skill namespacing). Same value goes in the catalog entry
+# plugin-catalog/starlearner-nexus.yaml.
+requires_hermes: ">=0.22.6"
+
+python_dependencies:                    # R10: floors + bounds; engine-path subset
+  - "jinja2>=3.0,<4"                    # generate_skills
+  - "requests>=2.25,<3"                 # github_fetch.py (in-process; replaces curl)
+  # (PyYAML dropped — engine-unused; verify_installation's import check updated)
+
+config_schema:
+  enrich:
+    type: str
+    choices: [llm, rules]
+    default: llm
+    label: Enrichment engine
+    description: >-
+      llm = the map / categorize / assess stages run through the host LLM
+      (ctx.llm — your active provider and model, host-owned credentials)
+      with the rules engine as fallback; rules = the deterministic keyword
+      engine only (zero LLM calls).
+  llm_max_items:
+    type: int
+    default: 50
+    label: LLM items per run
+    description: >-
+      Per-run cap on items (new starred repos) sent for LLM enrichment;
+      the rest — and everything when the LLM call fails — falls back to
+      the rules engine. 0 disables LLM enrichment.
+  generate_limit:
+    type: int
+    default: 5
+    label: Skills per category per run
+    description: >-
+      Max skills generated per category per run (top by stars; the engine
+      hardcodes 5 today). 0 = assess-only.
+  max_pages:
+    type: int
+    default: 30
+    label: Max star pages per sync
+    description: >-
+      Hard cap on the paginated /user/starred fetch (100 stars/page →
+      3000 stars). A clean "sync skipped" error, never a hang.
+  register_generated_skills:
+    type: bool
+    default: true
+    label: Register generated skills
+    description: >-
+      Register generated skills with the agent (namespaced
+      starlearner-nexus:<name>, loaded with skill_view). If false, files
+      are still written + reviewable via starlearner_review.
