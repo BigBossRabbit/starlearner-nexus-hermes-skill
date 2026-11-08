@@ -4,24 +4,33 @@ starlearner twin of the reapx battery).
 
 Every setting lives under
 ``plugins.entries.starlearner-nexus.settings.*`` (rendered as the
-Desktop Settings form from ``plugin.yaml``'s config_schema), read
-through ``runtime.setting`` with the precedence **tool args > settings >
-default**, and the defaults are GENERIC (a settings field with a
-hardcoded personal default is still a hardcode) and IDENTICAL to the
-defaults the code actually uses (plugin.yaml == the code):
+Desktop Settings form from ``plugin.yaml``'s ``config_schema``) and is
+read through ``runtime.setting`` — **from the plugin config ONLY**
+(the review point: tool args are prompt-injectable, so they must not be
+able to flip the user's choices). The defaults are GENERIC (a settings
+field with a hardcoded personal default is still a hardcode) and
+IDENTICAL to the defaults the code actually uses (plugin.yaml == the
+code):
 
-  * precedence: args override settings; settings override the default;
-    a missing context (no register()) = the default; a raising/None
-    ``get_config`` = the default (a settings read never crashes);
+  * config: settings override the default; a missing context (no
+    register()) = the default; a raising/None ``get_config`` = the
+    default (a settings read never crashes); an arg passed alongside is
+    IGNORED by ``setting``;
   * config_schema: the 5 keys (enrich / llm_max_items / generate_limit /
     max_pages / register_generated_skills), types + choices valid, every
     key carries a label + description (the Settings form), and every
     default is a generic value (no personal paths/names/numbers);
-  * code defaults == the schema defaults;
-  * tool args override the settings for one run (B.3.1's one-run
-    overrides — enrich/generate_limit/max_pages);
-  * llm_max_items=0 disables LLM enrichment (the cap's documented
-    meaning) — zero ctx.llm calls;
+  * code defaults == the schema defaults; ``register_generated_skills``
+    is FALSE by default (generated bodies come from other people's
+    content — review first, register on opt-in);
+  * the ONLY per-call args are the sync allowlist (dry_run, max_pages,
+    generate_limit): the two caps are ``min(argument, setting)`` — an
+    argument can only tighten the ceiling — and everything else in an
+    args dict is dropped, including an injected ``enrich`` /
+    ``llm_max_items`` / ``register_generated_skills``;
+  * ``setting_int`` keeps a meaningful 0 (``llm_max_items=0`` disables
+    LLM enrichment — zero ctx.llm calls; ``generate_limit=0`` is
+    assess-only) instead of collapsing it into the default;
   * requires_env (B.6.1): the ONE declared secret, the rich format
     (name UPPER_SNAKE + description + url + secret) the install prompt
     reads — and NO token anywhere in config_schema (secrets never touch
@@ -92,12 +101,46 @@ class SettingPrecedenceTests(unittest.TestCase):
             if name == PLUGIN_PKG or name.startswith(PLUGIN_PKG + "."):
                 sys.modules.pop(name, None)
 
-    def test_args_beat_settings_beat_default(self):
-        self.runtime.set_ctx(StubCtx({"enrich": "rules"}))
+    def test_settings_come_from_config_and_args_are_ignored(self):
+        """The review point: a prompt-injected arg cannot flip a setting."""
+        self.runtime.set_ctx(StubCtx({"enrich": "rules",
+                                      "llm_max_items": 5,
+                                      "register_generated_skills": False}))
+        injected = {"enrich": "llm", "llm_max_items": 500,
+                    "register_generated_skills": True}
         self.assertEqual(self.runtime.setting("enrich", "llm"), "rules")
-        self.assertEqual(
-            self.runtime.setting("enrich", "llm",
-                                 {"enrich": "llm"}), "llm")
+        self.assertEqual(self.runtime.setting_int("llm_max_items", 50), 5)
+        self.assertFalse(
+            self.runtime.setting("register_generated_skills", False))
+        self.assertEqual(set(injected), {"enrich", "llm_max_items",
+                                         "register_generated_skills"})
+        # setting() has no args parameter at all any more
+        import inspect
+        self.assertNotIn("args",
+                         inspect.signature(self.runtime.setting).parameters)
+
+    def test_setting_int_keeps_a_meaningful_zero(self):
+        self.runtime.set_ctx(StubCtx({"llm_max_items": 0,
+                                      "generate_limit": 0}))
+        self.assertEqual(self.runtime.setting_int("llm_max_items", 50), 0)
+        self.assertEqual(self.runtime.setting_int("generate_limit", 5), 0)
+        self.runtime.set_ctx(StubCtx({"max_pages": "junk"}))
+        self.assertEqual(self.runtime.setting_int("max_pages", 30), 30)
+
+    def test_a_cap_arg_can_only_tighten_the_ceiling(self):
+        # min(arg, setting); the setting is the ceiling
+        self.assertEqual(self.runtime.capped_arg({"max_pages": 5}, "max_pages",
+                                                 30), 5)
+        self.assertEqual(self.runtime.capped_arg({"max_pages": 90}, "max_pages",
+                                                 30), 30)
+        self.assertEqual(self.runtime.capped_arg({}, "max_pages", 30), 30)
+        self.assertEqual(self.runtime.capped_arg({"max_pages": "junk"},
+                                                 "max_pages", 30), 30)
+        # 0 survives the clamp (assess-only)
+        self.assertEqual(self.runtime.capped_arg({"generate_limit": 0},
+                                                 "generate_limit", 5), 0)
+        self.assertEqual(self.runtime.capped_arg({"generate_limit": 99},
+                                                 "generate_limit", 5), 5)
 
     def test_no_context_is_the_default(self):
         self.runtime.set_ctx(None)
@@ -125,7 +168,7 @@ class ConfigSchemaTests(unittest.TestCase):
         "llm_max_items": 50,
         "generate_limit": 5,
         "max_pages": 30,
-        "register_generated_skills": True,
+        "register_generated_skills": False,
     }
 
     def setUp(self):
@@ -222,7 +265,7 @@ class ConfigSchemaTests(unittest.TestCase):
         self.assertEqual(p.llm_max_items, 50)
         self.assertEqual(p.generate_limit, 5)
         self.assertEqual(p.max_pages, 30)
-        self.assertEqual(p.register_skills, True)
+        self.assertEqual(p.register_skills, False)
         from starlearner_under_test import tools
         self.assertEqual(tools.runtime.setting("enrich", "llm"), "llm")
         self.assertEqual(tools.runtime.setting("max_pages", 30), 30)
@@ -274,30 +317,58 @@ class ToolArgOverrideTests(unittest.TestCase):
     def _run(self, raw):
         return json.loads(raw)
 
-    def test_tool_args_override_the_settings_for_one_run(self):
-        """B.3.1's one-run overrides (args > settings): enrich=rules via
-        the arg over an enrich=llm setting = zero ctx.llm calls (the
-        setting/arg precedence drives the enrichment engine)."""
-        self.runtime.set_ctx(StubCtx({"enrich": "llm"}))
+    def test_injected_setting_args_are_ignored(self):
+        """The review point: a prompt-injected call passing every setting as
+        an arg gets the CONFIG values anyway (enrich settings=rules ⇒ zero
+        LLM calls even though the arg says llm; registration stays off)."""
+        self.runtime.set_ctx(StubCtx({"enrich": "rules", "llm_max_items": 0,
+                                      "register_generated_skills": False}))
+        from starlearner_under_test import harvest as h
+        p = h._Pipeline({"enrich": "llm", "llm_max_items": 500,
+                         "register_generated_skills": True, "bogus": 1})
+        self.assertEqual(p.enrich, "rules")
+        self.assertEqual(p.llm_max_items, 0)
+        self.assertFalse(p.register_skills)
+        self.assertEqual(p.args, {})  # the allowlist dropped everything else
 
         class Exploding:
-            calls = []
-
             @property
             def llm(self):
                 raise RuntimeError("must never be touched")
 
         class CtxWithLlm(StubCtx):
             def __init__(self):
-                super().__init__({"enrich": "llm"})
+                super().__init__({"enrich": "rules", "llm_max_items": 0,
+                                  "register_generated_skills": False})
                 self.llm = Exploding()
 
         self.runtime.set_ctx(CtxWithLlm())
-        from starlearner_under_test import harvest as h
-        result = h.run_sync({"enrich": "rules"})  # the one-run override
+        result = h.run_sync({"enrich": "llm", "llm_max_items": 500,
+                             "register_generated_skills": True})
         self.assertTrue(result.get("ok"), result)
         self.assertEqual(result["enrichment"], "rules")
         self.assertEqual(result["llm"]["map"]["batches"], 0)
+        self.assertEqual(result["registered_skills"], [])
+
+    def test_a_cap_arg_is_clamped_by_the_setting(self):
+        """`min(arg, setting)`: the arg is a cap, never an override — 50
+        requested over a setting of 2 is 2, 1 requested is 1."""
+        self.runtime.set_ctx(StubCtx({"max_pages": 2, "generate_limit": 4}))
+        from starlearner_under_test import harvest as h
+        self.assertEqual(h._Pipeline({"max_pages": 50}).max_pages, 2)
+        self.assertEqual(h._Pipeline({"max_pages": 1}).max_pages, 1)
+        self.assertEqual(h._Pipeline({"generate_limit": 25}).generate_limit, 4)
+        self.assertEqual(h._Pipeline({"generate_limit": 0}).generate_limit, 0)
+
+    def test_the_schema_declares_exactly_the_allowlist(self):
+        """Schema == the handler's allowlist (dry_run + the two capped
+        caps) — no setting is offered as an argument."""
+        from starlearner_under_test import harvest as h
+        from starlearner_under_test import schemas
+        declared = set(schemas.SYNC["parameters"]["properties"])
+        self.assertEqual(declared, set(h.SYNC_ARGS))
+        self.assertEqual(declared, {"dry_run", "max_pages",
+                                    "generate_limit"})
 
     def test_the_missing_token_is_a_clean_error_through_the_tool(self):
         """The R11/R12 guard: no token (the real fetch path) =

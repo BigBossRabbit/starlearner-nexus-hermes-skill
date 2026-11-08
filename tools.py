@@ -52,7 +52,7 @@ def status(args: dict, **kwargs) -> str:
                   "generate_limit": runtime.setting("generate_limit", 5),
                   "max_pages": runtime.setting("max_pages", 30),
                   "register_generated_skills":
-                      runtime.setting("register_generated_skills", True)}
+                      runtime.setting("register_generated_skills", False)}
         # the token state (presence ONLY — never a value):
         try:
             from . import github_fetch

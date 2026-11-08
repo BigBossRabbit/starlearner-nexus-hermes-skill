@@ -170,12 +170,32 @@ NOTE_RULES = ("No LLM enrichment was applied (enrich=rules): the "
               "skills are loadable now with "
               "skill_view(\"starlearner-nexus:<name>\").")
 
+NOTE_REVIEW_ONLY = ("register_generated_skills=false (the default): the "
+                    "skill files are written and reviewable via "
+                    "starlearner_review, not registered — switch the "
+                    "setting on once you trust the output.")
+
+
+# ── the per-call argument allowlist ──────────────────────────────────────────
+#
+# The review point: a tool call may carry ANY JSON object, so the only args
+# honoured are these three — everything else is dropped. They never carry a
+# setting: ``dry_run`` is per-call intent, the two caps are per-call tightening
+# of a configured ceiling (``min(arg, setting)``); enrich / llm_max_items /
+# register_generated_skills come from the plugin config alone.
+SYNC_ARGS = ("dry_run", "max_pages", "generate_limit")
+
+
+def _allowlisted(args: dict | None) -> dict:
+    return {key: value for key, value in (args or {}).items()
+            if key in SYNC_ARGS and value is not None}
+
 
 class _Pipeline:
     """One sync run."""
 
     def __init__(self, args: dict):
-        self.args = dict(args or {})
+        self.args = _allowlisted(args)
         from . import skills_out
         self.so = skills_out
         try:
@@ -197,16 +217,18 @@ class _Pipeline:
             self.gen_root = None
             self.starred = self.new_repos = self.categorized = None
             self.opportunities = self.ledger_path = None
-        # settings (args > settings > defaults)
-        self.enrich = runtime.setting("enrich", "llm", self.args) or "llm"
-        self.llm_max_items = int(runtime.setting("llm_max_items", 50,
-                                                 self.args) or 50)
-        self.generate_limit = int(runtime.setting("generate_limit", 5,
-                                                  self.args) or 5)
-        self.max_pages = int(runtime.setting("max_pages", 30,
-                                             self.args) or 30)
-        self.register_skills = bool(runtime.setting("register_generated_skills",
-                                                    True, self.args))
+        # settings: the plugin config ONLY (the review point — never args).
+        enrich = runtime.setting("enrich", "llm")
+        self.enrich = enrich if enrich in ("llm", "rules") else "llm"
+        self.llm_max_items = runtime.setting_int("llm_max_items", 50)
+        self.register_skills = bool(runtime.setting(
+            "register_generated_skills", False))
+        # the per-call caps: min(arg, setting), the setting is the ceiling
+        self.generate_limit = runtime.capped_arg(
+            self.args, "generate_limit",
+            runtime.setting_int("generate_limit", 5))
+        self.max_pages = runtime.capped_arg(
+            self.args, "max_pages", runtime.setting_int("max_pages", 30))
         self.dry_run = bool(self.args.get("dry_run"))
         self.result: dict = {"ok": True}
         # the enrichment layers' outputs (set as the run progresses)
@@ -218,11 +240,8 @@ class _Pipeline:
     # ── ① fetch (github_fetch) ──────────────────────────────────────────
     def fetch(self):
         from . import github_fetch
-        max_pages = self.max_pages
-        if self.args.get("max_pages") is not None:
-            max_pages = int(self.args.get("max_pages"))
         try:
-            repos = github_fetch.fetch_starred(max_pages=max_pages)
+            repos = github_fetch.fetch_starred(max_pages=self.max_pages)
         except github_fetch.AuthError as exc:
             raise _map_fetch_error(exc) from exc
         except BaseException as exc:  # never a bare escape
@@ -624,12 +643,10 @@ def _run(args: dict) -> dict:
                            "categorize": p.result.get("llm_categorize", {}),
                            "assess": p.result.get("llm_assess", {})}
         p.result["note"] = (NOTE if p.register_skills else
-                            "register_generated_skills=false: files written "
-                            "+ reviewable via starlearner_review, not "
-                            "registered.")
+                            NOTE_REVIEW_ONLY)
         if p.result["enrichment"] == "rules" and enrich == "rules":
             p.result["note"] = (NOTE_RULES if p.register_skills else
-                                "register_generated_skills=false.")
+                                NOTE_RULES + " " + NOTE_REVIEW_ONLY)
         p.result["new_sample"] = _sample(new)
         _record(p, ok=True)
         return p.result

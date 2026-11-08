@@ -52,16 +52,18 @@ def get_ctx():
         return _CTX
 
 
-def setting(key: str, default=None, args: dict | None = None):
-    """Read one plugin setting: tool args > plugins.entries.starlearner-nexus.settings >
-    *default* (the config_schema default — the caller passes it; never None so
-    the probe stub's get_config and an unconfigured plugin behave the same).
+def setting(key: str, default=None):
+    """Read one setting from the plugin config ONLY —
+    ``plugins.entries.starlearner-nexus.settings.<key>``.
+
+    Tool args never reach here (the review point): a prompt-injected call can
+    pass any JSON it likes without being able to flip the user's enrichment
+    engine, lift the LLM spend cap, or force skill registration. Per-call args
+    are handled separately: ``setting_int`` / ``capped_arg`` below.
 
     Never touches ctx.llm / ctx.state; returns the default whenever the
     context is missing (tests) or the key is unset.
     """
-    if args is not None and args.get(key) is not None:
-        return args.get(key)
     ctx = get_ctx()
     if ctx is None:
         return default
@@ -70,6 +72,38 @@ def setting(key: str, default=None, args: dict | None = None):
     except Exception:  # pragma: no cover — a settings read must never crash
         return default
     return default if value is None else value
+
+
+def setting_int(key: str, default: int) -> int:
+    """An integer setting, coerced; a non-numeric/absent value is the default.
+
+    0 is a MEANINGFUL value for the two cap settings (``llm_max_items=0``
+    disables enrichment, ``generate_limit=0`` is assess-only), so it is kept —
+    never collapsed into the default.
+    """
+    value = setting(key, default)
+    if value is None:
+        return default
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def capped_arg(args: dict | None, key: str, ceiling: int) -> int:
+    """A per-call cap that can only TIGHTEN the configured ceiling.
+
+    ``min(declared arg, setting)`` — the arg is per-call data, the setting is
+    the user's spend guard. A missing/garbage arg is the ceiling; 0 is kept
+    (assess-only / zero LLM items); the result is never negative.
+    """
+    if not args or args.get(key) is None:
+        return ceiling
+    try:
+        value = int(args[key])
+    except (TypeError, ValueError):
+        return ceiling
+    return max(0, min(value, ceiling))
 
 
 # ── on_unload hooks (engine-module eviction etc.) ────────────────────────────

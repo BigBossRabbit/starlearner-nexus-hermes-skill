@@ -17,20 +17,23 @@ SYNC = {
         "business-opportunity value), and generate ready-to-load skills "
         "(registered namespaced as starlearner-nexus:<name>, returned in "
         "the result). Use when the user mentions their GitHub stars, "
-        "starring repos, or refreshing their skill library from GitHub."
+        "starring repos, or refreshing their skill library from GitHub. "
+        "Enrichment engine, LLM item cap and skill registration come from "
+        "the plugin settings; the args below are the only per-call knobs "
+        "(the caps can only lower the configured ceiling)."
     ),
     "parameters": {
         "type": "object",
         "properties": {
             "max_pages":      {"type": "integer", "minimum": 1, "maximum": 100,
-                               "description": "Cap on the paginated stars fetch "
-                                              "(100/page; default settings value)."},
-            "enrich":         {"type": "string", "enum": ["llm", "rules"],
-                               "description": "One-run override of the enrichment "
-                                              "engine (default settings value)."},
+                               "description": "Fetch fewer star pages this run "
+                                              "— min(argument, max_pages "
+                                              "setting)."},
             "generate_limit": {"type": "integer", "minimum": 0, "maximum": 25,
-                               "description": "Max skills generated per category "
-                                              "this run (default settings value)."},
+                               "description": "Generate at most this many "
+                                              "skills per category this run — "
+                                              "min(argument, generate_limit "
+                                              "setting); 0 = assess-only."},
             "dry_run":        {"type": "boolean", "default": False,
                                "description": "Fetch + diff + enrich only; no "
                                               "generation, no ledger update."},
