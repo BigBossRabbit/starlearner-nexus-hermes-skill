@@ -39,7 +39,7 @@ hermes plugins install <this repo>   # or the catalog entry, pinned SHA
 
 | Tool | What it does |
 |---|---|
-| `starlearner_sync` | The product: fetch the new stars → map (the LLM curation pass) → categorize → two-track assess → **generate + register skills** (`starlearner-nexus:<name>`), returned in the result. |
+| `starlearner_sync` | The product: fetch the new stars → map (the LLM curation pass) → categorize → two-track assess → **generate skills** (`starlearner-nexus:<name>`, returned in the result; registered too when the `register_generated_skills` setting is on). |
 | `starlearner_status` | Read-only: token state (set/not set), last sync, ledger counts, registered skills, assessment + LLM-enrichment state, pending review items. |
 | `starlearner_review` | Read-only, item by item: each new starred repo, the two tracks, the generated skill. **Everything LLM-shaped lands here for the human** — never silently in the ledger. |
 
@@ -51,7 +51,15 @@ hermes plugins install <this repo>   # or the catalog entry, pinned SHA
 | `llm_max_items` | `50` | Per-run cap on items sent for LLM enrichment (a token-spend guard). `0` disables. |
 | `generate_limit` | `5` | Max skills per category per run (top by stars). `0` = assess-only. |
 | `max_pages` | `30` | Hard cap on the paginated `/user/starred` fetch (100 stars/page). A clean error, never a hang. |
-| `register_generated_skills` | `true` | Register generated skills (`starlearner-nexus:<name>`, loaded with `skill_view`). If false: files + `starlearner_review` only. |
+| `register_generated_skills` | `false` | Register generated skills (`starlearner-nexus:<name>`, loaded with `skill_view`). Off by default — skill bodies are rendered from other people's READMEs, so you review first (`starlearner_review`) and switch registration on when you trust the output. If false: files + review only. |
+
+**Settings are the only source of truth.** A tool call may pass just three
+things, and none of them is a setting: `dry_run` (per-call intent),
+`max_pages` and `generate_limit` (per-call caps, each one
+`min(argument, setting)` — an argument can only tighten your ceiling). So a
+prompt-injected call cannot switch LLM enrichment back on after you picked
+`rules`, lift the `llm_max_items` spend cap, or force skill registration;
+the tool schema declares exactly those three.
 
 **Registration timing (probed on a live Hermes v0.22.6):** handler-time
 `register_skill` is accepted **and live in the same session** — a

@@ -1,7 +1,7 @@
 ---
 name: starlearner-nexus
 description: "Turn GitHub starred repos into reusable Hermes skills."
-version: 1.2.0
+version: 1.3.0
 author: BigBossRabbit, Hermes Agent
 platforms: [linux, macos, windows]
 license: MIT

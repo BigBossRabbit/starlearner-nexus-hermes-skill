@@ -171,7 +171,8 @@ class SyncDriverTests(unittest.TestCase):
     # ── the rules run (bit-for-bit) ───────────────────────────────────────
     def test_sync_rules_run_end_to_end(self):
         from starlearner_under_test import harvest as h
-        ctx = RecordingCtx(settings={"enrich": "rules"})
+        ctx = RecordingCtx(settings={"enrich": "rules",
+                                     "register_generated_skills": True})
         self.plugin.runtime.set_ctx(ctx)
         result = h.run_sync({})
         self.assertTrue(result.get("ok"), result)
@@ -432,7 +433,9 @@ class SyncDriverTests(unittest.TestCase):
                  "opportunity": None, "opportunity_rationale": ""},
             ]}),
         ])
-        ctx = RecordingCtx(settings={"enrich": "llm"}, llm=llm)
+        ctx = RecordingCtx(settings={"enrich": "llm",
+                                     "register_generated_skills": True},
+                           llm=llm)
         self.plugin.runtime.set_ctx(ctx)
         result = h.run_sync({})
         self.assertTrue(result.get("ok"), result)

@@ -22,8 +22,10 @@ the plugin **generates** is a sibling skill under the
   skill. Everything LLM-shaped lands here for the human — never silently
   in the ledger.
 - `starlearner_sync` — the run itself (fetch the new stars → map →
-  categorize → assess → generate + register). Bounded, non-interactive,
-  fails clean.
+  categorize → assess → generate). Bounded, non-interactive, fails
+  clean. Generated skills are **registered only when the
+  `register_generated_skills` setting is on** (off by default; review
+  with `starlearner_review` first, then switch it on).
 
 ## How to open a generated skill
 
@@ -32,7 +34,9 @@ skill_view("starlearner-nexus:<name>")
 ```
 
 The names come out of `starlearner_status` / `starlearner_review` / the
-`starlearner_sync` result (`registered_skills`). When the agent loads a
+`starlearner_sync` result (`registered_skills` when the setting is on,
+otherwise the generated files are listed by `starlearner_review`). When
+the agent loads a
 plugin skill, a bundle context banner lists the sibling skills generated
 by the same runs.
 

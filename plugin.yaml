@@ -1,6 +1,6 @@
 # plugin.yaml — StarLearner-Nexus (manifest v2)
 name: starlearner-nexus
-version: 1.2.0
+version: 1.3.0
 manifest_version: 2
 api_version: 1
 license: MIT
@@ -15,8 +15,10 @@ description: >-
   integrating into your own makeup / business-opportunity value), with
   optional LLM enrichment of the map / categorize / assess stages through
   the host (ctx.llm) — zero keys in the plugin. Reads your stars with a
-  read-only GitHub token through the host's secret scope. Falls back to
-  the deterministic rules engine when no LLM is used.
+  read-only GitHub token through the host's secret scope. Generated skills
+  are written for review via starlearner_review and registered only when
+  you switch registration on. Falls back to the deterministic rules engine
+  when no LLM is used.
 
 provides_tools:
   - starlearner_sync
@@ -86,9 +88,11 @@ config_schema:
       3000 stars). A clean "sync skipped" error, never a hang.
   register_generated_skills:
     type: bool
-    default: true
+    default: false
     label: Register generated skills
     description: >-
       Register generated skills with the agent (namespaced
-      starlearner-nexus:<name>, loaded with skill_view). If false, files
-      are still written + reviewable via starlearner_review.
+      starlearner-nexus:<name>, loaded with skill_view). Off by default:
+      skill bodies are rendered from other people's repository READMEs, so
+      generation stays review-first and registration is the opt-in. If
+      false, files are still written + reviewable via starlearner_review.
