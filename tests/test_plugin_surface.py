@@ -339,6 +339,25 @@ class EngineAdapterTests(unittest.TestCase):
         self.assertNotIn("browser_locator", sys.modules)
         self.assertNotIn("cdp_launcher", sys.modules)
 
+    def test_plugin_modules_never_shadow_top_level_names(self):
+        """The module-collision law (the review's rename recommendation,
+        proven rather than asserted): every plugin module is imported
+        package-relative, so a bare top-level ``tools`` / ``schemas`` /
+        ``runtime`` / ``llm`` / ``harvest`` in sys.modules is never one of
+        ours — hermes core's own lazily-imported top-level packages stay
+        theirs."""
+        from starlearner_under_test import _engine
+        _engine.load()
+        for bare in ("tools", "schemas", "runtime", "llm", "harvest",
+                     "skills_out", "github_fetch", "_engine"):
+            module = sys.modules.get(bare)
+            if module is None:
+                continue
+            path = str(getattr(module, "__file__", "") or "")
+            self.assertFalse(
+                path.startswith(str(REPO_ROOT) + "/"),
+                f"top-level {bare!r} resolved to the plugin's {path}")
+
     def test_broken_engine_import_is_a_runtimeerror(self):
         from starlearner_under_test import _engine
         # break the engine import the way a broken tree would: a None in
