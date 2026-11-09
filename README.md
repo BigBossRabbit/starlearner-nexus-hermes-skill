@@ -7,12 +7,17 @@ Agent skills.**
 
 **Origin of the reapx lineage.** The
 [reapx](https://github.com/BigBossRabbit/reapx) plugin is derived from
-this one (it reuses this pipeline's map → categorize → generate stages
-verbatim, and replaces the GitHub-stars transport with a
-logged-in-browser bookmark harvest); it discloses that in its README and
-catalog entry. Same owner, both entries (R05), different transports and
-capabilities (R16). Lineage evidence (from the local git logs of both
-repos, re-verified at PR time): this repository's initial commit is
+this one: it reuses this pipeline's map → categorize → generate stages
+verbatim and swaps the transport. Here the source is the repositories
+**you** starred on GitHub — one read-only call, `GET /user/starred`,
+authenticated with your own token through the host's secret scope.
+There it is an X-bookmarks file imported as data. The **plugin** does no
+browser automation, no keychain access, no key and no paid X API;
+reapx's logged-in-browser harvest exists only in its **standalone
+script**, outside the plugin surface. It discloses that in its README
+and catalog entry. Same owner, both entries (R05), different transports
+and capabilities (R16). Lineage evidence (from the local git logs of
+both repos, re-verified at PR time): this repository's initial commit is
 dated **2026-05-15**; the fork event is on the record in this history
 (`bfd4931` "Add X-bookmarks ingestion source" at 2026-08-13 22:11,
 reverted in `7ad9692` at 22:23 — with **reapx's** initial commit
